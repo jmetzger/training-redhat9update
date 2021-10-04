@@ -5,3 +5,10 @@
 # kann u.U. so auf anderen Distris nicht vorhanden sein
 alias 
 ```
+
+# Alias - Befehl in der Session setzen
+
+```
+# Achtung, existiert nicht nacht schliessen der Session
+alias l3='ls -la | head -n 3'
+```
