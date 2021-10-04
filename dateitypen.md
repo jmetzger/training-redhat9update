@@ -12,4 +12,5 @@ d directory
 l symbolischer Link 
 c Character-Device (Eingabegerät: Zeichenorientiert z.B. Tastatur)  
 b Block-Device (Ausgabegerät): Blockorientiert, z.B. Festplatte) 
+s socket (Für Kommunikation von client zu server / server zu client) auf der gleichen Maschine  
 ```
