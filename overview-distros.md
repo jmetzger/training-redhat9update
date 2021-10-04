@@ -9,6 +9,13 @@ Centos
 Redhat.  — rpm / (yum / dnf)
 Oracle Linux 
 Fedora 
+
+# ab 2022 kann man Centos Linux nicht als vollwertigen Ersatz für Redhat verwenden 
+
+# ab 2022 sehr interessant bzw. unabdingbar 
+Rocky Linux
+Alma Linux 
+
 ```
 ### Debian Familie 
 
