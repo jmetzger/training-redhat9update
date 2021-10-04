@@ -6,7 +6,8 @@
 
 ```
 Centos 
-Redhat.  — rpm / (yum / dnf) 
+Redhat.  — rpm / (yum / dnf)
+Oracle Linux 
 Fedora 
 ```
 ### Debian Familie 
