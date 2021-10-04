@@ -27,14 +27,7 @@
      * [Verzeichnisse und Dateien löschen](file-dir-delete.md)
      * [Kopieren/Verschieben/Umbenennen von Dateien und Files](file-rename-copy-mv.md) 
      * [Arbeiten mit vi](vi.md)
-    
-  1. Prozesse 
-     * [Prozesse anzeigen - ps/pstree -p](prozesse.md)
-  1. Benutzer, Gruppen und Rechte 
-     * [Rechte](rechte.md) 
-     * [Dateien für Benutzer und Gruppen](files-users-groups.md) 
-     * [Benutzer anlegen](create-users.md) 
-     * [sudo Benutzer erstellen](mod-user-sudo.md) 
+  
   1. Dateimanipulation/Unix Tools
      * [Anfang oder Ende einer Datei/Ausgabe anzeigen](head-tail.md)
      * [cat/head/tail-Beginn/Ende einer Datei anzeigen](cat-head.md)
@@ -43,6 +36,15 @@
      * [Bestimmte Zeilen aus Datei anzeigen - grep](grep.md)
      * [Erweiterte Suche mit Grep](grep-extended.md)
      * [Finden von files nach Kriterien - find](find.md)
+  
+  1. Prozesse 
+     * [Prozesse anzeigen - ps/pstree -p](prozesse.md)
+  1. Benutzer, Gruppen und Rechte 
+     * [Rechte](rechte.md) 
+     * [Dateien für Benutzer und Gruppen](files-users-groups.md) 
+     * [Benutzer anlegen](create-users.md) 
+     * [sudo Benutzer erstellen](mod-user-sudo.md) 
+  
   1. Logs/Loganalyse
      * [Logfile beobachten](tailf.md)
      * [Dienste debuggen](debug-service.md)
