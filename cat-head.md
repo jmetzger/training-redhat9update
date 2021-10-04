@@ -1,12 +1,12 @@
 # Dateien anzeigen / Teile davon 
 
-### cat mit Zeilennumer 
+## cat mit Zeilennumer 
 
 ```
 cat -n /etc/services 
 ```
 
-### Die ersten -x Zeilen anzeigen 
+## Die ersten -x Zeilen anzeigen 
 
 ```
 # ersten 10 Zeilen anzeigen
@@ -14,6 +14,14 @@ head /etc/services
 
 # Ersten 20 Zeilen 
 head -n 20 /etc/services  
+```
+
+## Die ersten 10 Zeilen / Variante mit cat
+
+```
+cat services | head 
+# mit zeilennummen 
+cat -n services | head 
 ```
 
 ## Die letzten -x Zeilen anzeigen 
@@ -26,10 +34,8 @@ tail /etc/services
 tail -n 40 /etc/services
 ```
 
-## Ausgabe der letzten Zeilen und ausgabe in Datei 
+## Ausgabe der letzten 10 Zeilen 
 
 ```
-cd /var/log 
-tail -n 100 syslog.1 >> fehlerlog 
-cat fehlerlog
+cat /etc/services | tail
 ```
