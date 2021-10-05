@@ -116,9 +116,9 @@ systemctl set-default multi-user
 ## Alle Target anzeigen in die ich reinwechseln kann (isolate) 
 
 ```
-# Ubuntu 
-grep -r "AllowIsolate" /lib/systemd/system 
-/lib/systemd/system/reboot.target
+# Redhat / centos  
+grep -r "AllowIsolate" /usr/lib/systemd/system 
+/usr/lib/systemd/system/reboot.target
 ...
 ...
 ...
