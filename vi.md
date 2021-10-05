@@ -39,7 +39,9 @@ vimtutor # sollte bereits mit vi installiert worden sein.
   ESC + :q! # ESC Taste drücken, dann : und q! und enter 
   
   5b. Oder: Speichern und schliessen 
-  ESC + :x # ESC Taste drücken, dann : und w und enter 
+  ESC + :x # ESC Taste drücken, dann : und x und enter 
+  # oder
+  ESC + :wq # ESC Taste drücken, dann : und w und q
 ```  
 
 ## Virtual Mode 
