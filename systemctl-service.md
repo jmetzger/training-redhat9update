@@ -1,5 +1,34 @@
 # Systemctl / Service 
 
+## Welche Dienste sind active ? 
+
+```
+systemctl list-units --type=service
+# oder
+systemctl list-units -t service 
+# oder
+systemctl -t service 
+```
+
+## Wie ist die Konfiguration eines Dienstes ? 
+
+```
+systemctl cat sshd.service 
+
+```
+
+## Wie sehe ich den status eines Dienstes ? 
+
+```
+systemctl status sshd
+systemctl status sshd.service 
+
+# ältere Variante 
+service sshd status 
+
+```
+
+
 ## systemctl Beispiele 
 ```
 # Status eines Dienstes überprüfen 
