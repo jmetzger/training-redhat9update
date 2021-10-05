@@ -1,4 +1,4 @@
-# Systemctl / Service 
+# systemctl / service 
 
 ## Welche Dienste sind aktiviert ?  
 
