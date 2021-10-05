@@ -16,7 +16,7 @@ systemctl -t service
 systemctl start httpd
 systemctl stop httpd 
 
-``
+```
 
 ## Wie ist die Konfiguration eines Dienstes ? 
 
