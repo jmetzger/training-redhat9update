@@ -10,6 +10,14 @@ systemctl list-units -t service
 systemctl -t service 
 ```
 
+## Wie starte und stoppe ich einen Dienst ?
+
+```
+systemctl start httpd
+systemctl stop httpd 
+
+``
+
 ## Wie ist die Konfiguration eines Dienstes ? 
 
 ```
