@@ -28,6 +28,26 @@ service sshd status
 
 ```
 
+## Wie kann ich einen Dienst deaktivieren ? 
+
+```
+## d.h. dienst wird beim nächsten Boot nicht gestartet
+
+systemctl disable sshd.service
+# oder
+systemctl disable sshd 
+
+```
+
+## Wie sehe ich, ob eine Dienst aktiviert / deaktiviert ist ? 
+
+```
+systemctl is-enabled sshd.service 
+echo $?
+```
+
+
+## Wie kann ich sehen
 
 ## systemctl Beispiele 
 ```
