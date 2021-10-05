@@ -46,55 +46,15 @@ systemctl is-enabled sshd.service
 echo $?
 ```
 
+## Dienst aktivieren ?
 
-## Wie kann ich sehen
-
-## systemctl Beispiele 
 ```
-# Status eines Dienstes überprüfen 
-service sshd status 
-systemctl status sshd 
-
-# Wie heisst der Dienst / welche Dienste gibt es ? (nur wenn der service aktiviert ist). 
-systemctl list-units -t service 
-# für apache
-systemctl list-units -t service | grep ^apache
-# die Abkürzung 
-systemctl -t service | grep ^apache
-
-# Wie finde ich einen service, der noch nicht aktiviert ist ? 
-systemctl list-unit-files -t service | grep ssh
-
-# Dienst aktivieren
-systemctl enable apache2 
-# Ist Dienst aktiviert 
-systemctl is-enabled apache2
-enabled
-echo $?
-0 # Wenn der Dienst aktiviert ist 
-
-# Dienst deaktivieren (nach Booten nicht starten)
-systemctl disable apache2
-systemctl is-enabled 
-disabled
-echo $?
-1 # 1 wenn nicht aktiviert
-
-# Rebooten des Servers
-# verweist auf systemctl 
-reboot
-systemctl reboot
-shutdown -r now  
-
-# Halt (ohne Strom ausschalten) 
-halt
-systemctl halt 
-shutdown -h now 
-
-# Poweroff 
-poweroff
-systemctl poweroff 
+systemctl enable sshd.service 
 ```
+
+
+
+
 
 ## Wie sehe ich, wie ein Service konfiguriert ist / Dienstekonfiguration anzeigen ? 
 
@@ -169,6 +129,54 @@ systemctl unmask apache2
 # kann wieder gestaret werden
 systemctl start apache2
 ```
+
+## systemctl - Diverse Beispiele 
+```
+# Status eines Dienstes überprüfen 
+service sshd status 
+systemctl status sshd 
+
+# Wie heisst der Dienst / welche Dienste gibt es ? (nur wenn der service aktiviert ist). 
+systemctl list-units -t service 
+# für apache
+systemctl list-units -t service | grep ^apache
+# die Abkürzung 
+systemctl -t service | grep ^apache
+
+# Wie finde ich einen service, der noch nicht aktiviert ist ? 
+systemctl list-unit-files -t service | grep ssh
+
+# Dienst aktivieren
+systemctl enable apache2 
+# Ist Dienst aktiviert 
+systemctl is-enabled apache2
+enabled
+echo $?
+0 # Wenn der Dienst aktiviert ist 
+
+# Dienst deaktivieren (nach Booten nicht starten)
+systemctl disable apache2
+systemctl is-enabled 
+disabled
+echo $?
+1 # 1 wenn nicht aktiviert
+
+# Rebooten des Servers
+# verweist auf systemctl 
+reboot
+systemctl reboot
+shutdown -r now  
+
+# Halt (ohne Strom ausschalten) 
+halt
+systemctl halt 
+shutdown -h now 
+
+# Poweroff 
+poweroff
+systemctl poweroff 
+```
+
 
 ## systemctl Cheatsheet 
 
