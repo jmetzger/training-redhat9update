@@ -8,6 +8,15 @@ w = Schreiben
 x = Ausführen 
 ```
 
+## Für welchen Bereich ? 
+
+```
+u = user 
+g = gruppe
+o = others (die anderen / die Welt) 
+a = für alle (d.h. gleichzeitig für u und g und o) 
+```
+
 ## Aufbau triple 
 
 ```
@@ -26,4 +35,16 @@ kurs@ubuntu2004-101:~$ #  7  |  6  | 4
 
 ```
 chmod g+w,o+r testfile
+```
+
+## Berechtigungen mit Octalzahlen setzen 
+
+```
+chmod 777 testfile
+```
+
+## Berechtigungen recursiv setzen 
+
+```
+chmod -R 777 testverzeichnis 
 ```
