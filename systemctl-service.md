@@ -1,6 +1,6 @@
 # Systemctl / Service 
 
-## Welche Dienste sind active ?  
+## Welche Dienste sind aktiviert ?  
 
 ```
 systemctl list-units --type=service
@@ -8,6 +8,12 @@ systemctl list-units --type=service
 systemctl list-units -t service 
 # oder
 systemctl -t service 
+```
+
+## Wie finde ich einen service, der noch nicht aktiviert ist ? 
+
+```
+systemctl list-unit-files -t service | grep mariadb
 ```
 
 ## Wie starte und stoppe ich einen Dienst ?
