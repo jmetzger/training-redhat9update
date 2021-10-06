@@ -1,6 +1,6 @@
 # firewalld
 
-## Install firewalld ase 
+## Install firewalld
 
 
 ```
