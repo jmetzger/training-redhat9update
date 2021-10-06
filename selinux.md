@@ -4,13 +4,13 @@
 
  * Zeigt an, obwohl selinux aktiviert und wie
 
-## modi 
+## Modi 
 
  * disabled 
  * enforcing (enabled)
  * permissive (enabled) 
 
-## persistente configuration 
+## Persistente Konfiguration 
 
 ```
 /etc/selinux/config
