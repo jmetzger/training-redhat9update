@@ -15,3 +15,8 @@
 ```
 /etc/selinux/config
 ```
+## Dateien mit context anzeigen
+
+```
+ls -laZ 
+```
