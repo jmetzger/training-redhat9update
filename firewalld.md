@@ -1,21 +1,14 @@
-# firewalld (ubuntu 20.04)  
+# firewalld
 
-## Install firewalld and restrict ufw 
+## Install firewalld ase 
+
 
 ```
-# Schritt 1: ufw deaktivieren 
-systemctl stop ufw
-systemctl disable ufw 
-ufw disable # zur Sicherheit 
-ufw status
-# -> disabled # this has to be the case 
+# on centos/redhat firewalld should installed
+systemctl status firewalld
 
-# Schritt 2: firewalld 
-apt install firewalld 
-systemctl start firewalld 
-systemctl enable firewalld 
-systemctl status firewalld 
-systemctl status ufw 
+# if not, just do it 
+yum install firewalld
 
 ```
 
