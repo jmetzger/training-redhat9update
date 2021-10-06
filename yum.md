@@ -38,6 +38,15 @@ yum search mariadb
 yum info mariadb-server
 ```
 
+## Welche Programmpaket installiert ein bestimmtes Programm
+
+```
+# Beispiel sealert 
+yum whatprovides sealert 
+
+```
+
+
 ## Cheatsheet
 
   * https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
