@@ -39,6 +39,8 @@
   
   1. Prozesse 
      * [Prozesse anzeigen - ps/pstree -p](prozesse.md)
+     * [Alle Prozesse eines Dienstes anzeigen](prozesse-dienst.md)
+
   1. Benutzer, Gruppen und Rechte 
      * [Rechte](rechte.md) 
      * [Dateien für Benutzer und Gruppen](files-users-groups.md) 
