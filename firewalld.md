@@ -48,7 +48,6 @@ block dmz drop external home internal public trusted work
 
 ```
 firewall-cmd --get-active-zones
-# in our case empty 
 ```
 
 ## Show information about all zones that are used 
