@@ -153,5 +153,6 @@ firewall-cmd --runtime-to-permanent
 
 ## References 
 
+  * https://www.ispcolohost.com/2016/07/25/blocking-outgoing-ports-with-firewalld/
   * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
   * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
