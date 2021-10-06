@@ -20,17 +20,15 @@ journalctl -e -u mariadb.service
 # Spezifisches Log von Dienst suchen 
 # und evtl. LogLevel von Dienst hochsetzen
 # z.B. bei mariadb (durch Internetrecherche herausfinden) 
-less /var/log/mysql/error.log 
+less /var/log/mariadb/mariadb.log 
 # oder schneller
 # Zeige alle Zeilen mit dem Wort error an (case insensitive) 
 # also auch z.B. ERROR 
-cat /var/log/mysql/error.log | grep -i error
+cat /var/log/mariadb/mariadb.log | grep -i error
 
 
 # Nicht fündig -> Schritt 5
 # Allgemeines Log
-# Debian/Ubuntu 
-/var/log/syslog
 # REdhat/Centos 
 /var/log/messages 
 ```
