@@ -13,7 +13,8 @@ systemctl status mariadb.service
 jourrnalctl -xe
 
 # Nicht fündig -> Schritt 3:
-journalctl -u mariadb.service 
+# -e springt ans Ende des Pages
+journalctl -e -u mariadb.service 
 
 # Nicht fündig -> Schritt 4:
 # Spezifisches Log von Dienst suchen 
