@@ -42,8 +42,12 @@ firewall-cmd --reload
 ## Apache started nicht wg Port-Änderung (Port: 82)  - Quick and Dirty Lösung
 
 ```
+# /etc/httpd/httpd.conf
+# zeile hinzufügen 
+Listen 82
+
 # Es kommt ein Fehler bei Apache port 82 (Listen 82) 
-systemctl start httpd
+systemctl restart httpd
 
 # Schritt 1: Prüfen, ob selinux aktiv ist
 sestatus # Sucht 2 Einträgen enforcing 
