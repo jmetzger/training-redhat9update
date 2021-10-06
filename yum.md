@@ -32,6 +32,11 @@ yum search mariadb
 
 ```
 
+## Infos zu einem Paket abrufen 
+
+```
+yum info mariadb-server
+```
 
 ## Cheatsheet
 
