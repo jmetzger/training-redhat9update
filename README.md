@@ -1,4 +1,4 @@
-# Linux Basiswissen 
+# Redhat Linux Grundlagen
 
 ## Agenda 
 
