@@ -81,6 +81,15 @@ public
 ```
 firewall-cmd --get-services 
 ```
+
+## What ports a opened in a service 
+
+```
+# Example ssh 
+cd /usr/lib/firewalld/services 
+cat ssh.xml 
+```
+
 ## Adding/Removing a service 
 
 ```
