@@ -58,6 +58,10 @@
      * [Gegenüberstellung service etc/init.d/ systemctl](service-initd-systemctl.md)
      * [Default Editor systemctl setzen](default-editor-systemctl.md) 
 
+  1. Systemadministration 
+     * [Hostname setzen/abfragen](hostnamectl.md) 
+     * [ssh absichern](ssh-absichern.md)
+
   1. Partitionierung und Filesystem
      * [parted and mkfs.ext4](parted-mkfs.md)
   1. Boot-Prozess und Kernel 
