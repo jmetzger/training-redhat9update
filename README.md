@@ -74,7 +74,6 @@
      * [Paketmanager apt/dpkg](apt-dpkg.md) 
      * [Archive runterladen und entpacken](tar-download.md) 
   1. Firewall und ports
-     * [ufw (uncomplicated firewall)](ufw.md)
      * [firewalld](firewalld.md)
      * [Scannen und Überprüfen mit telnet/nmap](nmap-telnet.md) 
   1. Netzwerk/Dienste 
