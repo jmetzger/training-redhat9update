@@ -9,3 +9,9 @@
  * disabled 
  * enforcing (enabled)
  * permissive (enabled) 
+
+## persistente configuration 
+
+```
+/etc/selinux/config
+```
