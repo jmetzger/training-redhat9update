@@ -72,7 +72,8 @@
   1. Wartung und Aktualisierung
      * [Aktualisierung des Systems](update-upgrade.md)
      * [Paketmanager apt/dpkg](apt-dpkg.md) 
-     * [Archive runterladen und entpacken](tar-download.md) 
+     * [Archive runterladen und entpacken](tar-download.md)
+     * [Apache installieren (firewall und selinux)](apache-installieren-selinux-firewalld.md) 
   1. Firewall und ports
      * [firewalld](firewalld.md)
      * [Scannen und Überprüfen mit telnet/nmap](nmap-telnet.md) 
