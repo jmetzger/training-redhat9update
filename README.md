@@ -59,7 +59,7 @@
      * [Default Editor systemctl setzen](default-editor-systemctl.md) 
 
   1. Systemd 
-     * [Die wichtigen Tools für die Kommandozeile (ctl)](systemd-ctl-tools.md)
+     * [Die wichtigen Tools für die Kommandozeile (ctl)](systemd-cli-tools.md)
 
   1. Systemadministration 
      * [Hostname setzen/abfragen](hostnamectl.md) 
