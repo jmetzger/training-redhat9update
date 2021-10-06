@@ -58,6 +58,9 @@
      * [Gegenüberstellung service etc/init.d/ systemctl](service-initd-systemctl.md)
      * [Default Editor systemctl setzen](default-editor-systemctl.md) 
 
+  1. Systemd 
+     * [Die wichtigen Tools für die Kommandozeile (ctl)](systemd-ctl-tools.md)
+
   1. Systemadministration 
      * [Hostname setzen/abfragen](hostnamectl.md) 
      * [ssh absichern](ssh-absichern.md)
