@@ -58,3 +58,14 @@ podman run -it --name=myalpine4 alpine ls -la
 podman logs myalpine4
 
 ```
+
+## Configuration abfragen
+
+```
+podman inspect -f "{{.NetworkSettings.IPAddress}}" myalpine3
+10.88.0.7
+
+
+```
+
+
