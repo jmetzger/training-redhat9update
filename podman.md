@@ -62,8 +62,14 @@ podman logs myalpine4
 ## Configuration abfragen
 
 ```
+# Alle Konfigurationen
+podman inspect myalpine3 
+# oder container id
+podman inspect a23e
+
 podman inspect -f "{{.NetworkSettings.IPAddress}}" myalpine3
 10.88.0.7
+
 
 
 ```
