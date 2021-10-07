@@ -94,8 +94,8 @@ podman rmi -a
 # Dockerfile beispiel ubuntu mit folgendem Inhalt 
 FROM ubuntu:20.04
 
-RUN apt update
-RUN apt-install -y nginx
+RUN apt-get update
+RUN apt-get install -y nginx
 
 ENV NEW_MODE laola
 ENV TRAINING_VERSION 1.0 
