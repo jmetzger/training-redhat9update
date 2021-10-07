@@ -27,13 +27,13 @@ systemctl restart sshd
 # When setting it up 
 # Disable PasswordAuthentication afterwards 
 
-# server1 client 
+# server2 client 
 # as user kurs
 ssh-keygen 
 # set password set important
-ssh-copy-id kurs@server2 
+ssh-copy-id kurs@server1 
 
 ## Now you can login with public/private key 
-ssh kurs@server2 
+ssh kurs@server1 
 
 ```
