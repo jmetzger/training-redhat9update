@@ -78,4 +78,14 @@ podman inspect -f "{{.NetworkSettings.IPAddress}}" myalpine3
 
 ```
 
+## Aufräumen (tabula rasa) 
+
+```
+# alle container und die, die noch laufen, vorher stoppen
+podman rm -a --force 
+
+# alle runtergeladenen images löschen
+podman rmi -a 
+```
+
 
