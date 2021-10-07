@@ -88,4 +88,27 @@ podman rm -a --force
 podman rmi -a 
 ```
 
+## Image bauen 
+
+```
+# Dockerfile beispiel ubuntu mit folgendem Inhalt 
+FROM ubuntu:20.04
+
+RUN apt update
+RUN apt-install -y nginx
+
+ENV NEW_MODE laola
+ENV TRAINING_VERSION 1.0 
+```
+
+```
+FROM centos:latest
+
+RUN yum install -y nginx 
+ENV NEW_MODE laola
+ENV TRAINING_VERSION 1.0 
+```
+
+
+
 
