@@ -1,5 +1,9 @@
 # Podman 
 
+## Aufbau (Wirkweise) 
+
+![Aufbau Containerverwendung](docker-podman.jpg)
+
 ## Walkthrough 
 
 ```
