@@ -31,3 +31,30 @@ podman ps -a
 podman run -it --name=myalpine2 alpine
 
 ```
+
+## Walkthrough II
+
+```
+# interactive mit terminal und detached
+# Detached - es läuft weiter im hintergrund 
+podman run -dit --name=myalpine3 alpine
+# in maschine reinwechseln, Kommanda ls -la ausführen
+# danach wieder raus
+podman exec -it myalpine3 ls -la
+
+podman ps -a
+
+# geht nicht, weil es im container keine bash gibt
+# das ist bei alpine der fall, hier gibt es nur busybox
+podman exec -it myalpine3 bash
+
+# einen sh - befehl gibt in jedem Linux
+# dieser verweist auf die aktuelle Shell
+podman exec -it myalpine3 sh
+
+# Die Ausgabe des ersten Befehls wird geloggt 
+podman run -it --name=myalpine4 alpine ls -la
+# Logs anzeigen 
+podman logs myalpine4
+
+```
