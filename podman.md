@@ -91,7 +91,13 @@ podman rmi -a
 ## Image bauen 
 
 ```
-# Dockerfile beispiel ubuntu mit folgendem Inhalt 
+mkdir myimage
+cd myimage
+```
+
+
+```
+# vi Dockerfile beispiel ubuntu mit folgendem Inhalt 
 FROM ubuntu:20.04
 
 RUN apt-get update
@@ -109,6 +115,16 @@ ENV NEW_MODE laola
 ENV TRAINING_VERSION 1.0 
 ```
 
+```
+# choose any name for the image with -t 
+# does not need to be the directory name 
+podman build -t myimage . 
 
+# image als Basis für einen container verwenden 
+podman run -dit --name mycontainer myimage 
 
-
+# Now work in the container if you want 
+podman exec -it mycontainer bash 
+## do whatever you want in the container 
+## e.g. env
+```
