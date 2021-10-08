@@ -88,12 +88,14 @@
      * [Apache installieren (firewall und selinux)](apache-installieren-selinux-firewalld.md) 
   1. Firewall und ports
      * [firewalld](firewalld.md)
-     * [Scannen und Überprüfen mit telnet/nmap](nmap-telnet.md) 
+     * [Scannen und Überprüfen mit telnet/nmap](nmap-telnet.md)
   1. Netzwerk/Dienste 
      * [IP-Adresse von DHCP-Server holen (quick-and-dirty)](dhclient.md) 
      * [Auf welchen Ports lauscht mein Server](lsof.md) 
   1. Podman 
      * [Podman Walkthrough](podman.md) 
+  1. SELinux (Linux härten)
+     * [SELinux](selinux.md)
   1. Tools/Verschiedens 
      * [Remote Desktop für Linux / durch Teilnehmer getestet](https://wiki.ubuntuusers.de/Remmina/)
      * [Warum umask 002 und 0002 ? - Geschichte](umask-002-022-why.md)
