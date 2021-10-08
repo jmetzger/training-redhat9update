@@ -8,6 +8,26 @@ nmcli connection show
 nmcli conn show 
 ```
 
+## Netzwerk-Interface statisch auf Server neu einrichten (server 2)
+
+```
+# muss in der Liste sichtbar sein 
+nmcli con add enp0s9 type ethernet ifname enp0s9 ipv4.method manual ipv4.addresses 192.168.1.2/24
+nmcli con mod enp0s9 autoconnect yes
+# set the correct interface for the connection 
+# nmcli con mod ens3 ifname eth1
+
+# verbindung neu hochziehen
+nmcli con up enp0s9
+
+# verbindungseigenschaften anzeigen
+nmcli con show 
+
+
+
+
+
+
 ## Netzwerk-Interface modifizieren (server 3) 
 
 ```
