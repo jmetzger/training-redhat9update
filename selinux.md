@@ -20,3 +20,13 @@
 ```
 ls -laZ 
 ```
+
+## Für nächsten Boot Kontext-Labels neu setzen 
+
+```
+# als root
+cd / 
+touch .autorelabel 
+reboot
+# Achtung relabeln kann dauern !!! durchaus 5 Minuten 
+```
