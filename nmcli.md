@@ -14,8 +14,6 @@ nmcli conn show
 # muss in der Liste sichtbar sein 
 nmcli con add type ethernet con-name enp0s9 ifname enp0s9 ipv4.method manual ipv4.addresses 192.168.1.2/24
 nmcli con mod enp0s9 autoconnect yes
-# set the correct interface for the connection 
-# nmcli con mod ens3 ifname eth1
 
 # verbindung neu hochziehen
 nmcli con up enp0s9
