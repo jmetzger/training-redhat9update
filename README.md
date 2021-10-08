@@ -92,6 +92,7 @@
   1. Netzwerk/Dienste 
      * [IP-Adresse von DHCP-Server holen (quick-and-dirty)](dhclient.md) 
      * [Auf welchen Ports lauscht mein Server](lsof.md) 
+     * [Interface mit nmtu-edit verwalten - schneller Weg](nmtui-edit.md)
   1. Podman 
      * [Podman Walkthrough](podman.md) 
   1. SELinux (Linux härten)
