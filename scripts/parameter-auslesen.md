@@ -1,5 +1,7 @@
 # Parameter auslesen 
 
+## Einfaches Beispiel 
+
 ```
 # parameter.sh 
 source config.sh
@@ -31,3 +33,22 @@ echo $#
 
 ```
 
+## Parameter begrenzen 
+
+```
+# params.sh 
+
+
+if [ $# -gt 2 ]
+then
+  echo "Sorry, nur max. 2 parameter moeglich"
+  exit 1
+fi
+
+```
+
+
+```
+chmod  u+x params.sh
+./params.sh param1 param2 param3 
+```
