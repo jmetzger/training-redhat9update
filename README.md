@@ -94,6 +94,7 @@
      * [Auf welchen Ports lauscht mein Server](lsof.md) 
      * [Interface mit nmtu-edit verwalten - schneller Weg](nmtui-edit.md)
      * [Netzwerkinterface auf der Kommandozeile einrichten](nmcli.md) 
+     * [Scannen mit nmap](nmap.md)
   1. Podman 
      * [Podman Walkthrough](podman.md) 
   1. SELinux (Linux härten)
