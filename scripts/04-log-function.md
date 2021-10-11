@@ -1,6 +1,6 @@
 # Log - Function 
 
-```
+``` shell
 source config.sh
 
 loggen(){
