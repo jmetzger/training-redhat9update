@@ -106,6 +106,11 @@
   1. Bash/Bash-Scripting 
      * [Einfaches Script zur Datumsausgabe](script-date.md) 
      * [Ausführen/Verketten von mehreren Befehlen](multiple-commands.md)
+     * [Example with date and if](01-date-if.md)
+     * [Example with function and return value](02-function-return-value.md)
+     * [Example with test and if](03-if.md)
+     * [Example log function](04-log-function.md)
+     * [Example Parameter auslesen](05-parameter-auslesen.md)
   1. Timers/cronjobs 
      * [Cronjob - hourly einrichten](cronjob-hourly.md)
      * [cronjob (zentral) - crond](crond.md) 
