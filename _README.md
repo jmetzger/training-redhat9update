@@ -1,4 +1,4 @@
-# Linux Basiswissen 
+# Redhat Linux Grundlagen
 
 
 ## Agenda
@@ -17,6 +17,8 @@
   1. Erweiterte Befehle (Nice to have) 
      * [Alias Befehle anzeigen](#alias-befehle-anzeigen)
      * [Welche Bibliotheken verwendet ein ausführbares Programm](#welche-bibliotheken-verwendet-ein-ausführbares-programm)
+     * [Ist ein Befehl extern, alias oder intern](#ist-ein-befehl-extern,-alias-oder-intern)
+
   1. Dateien und Verzeichnisse
      * [Mit cd im System navigieren](#mit-cd-im-system-navigieren)
      * [Verzeichnisse in Listenansicht mit versteckten Dateien anzeigen -> ls -la](#verzeichnisse-in-listenansicht-mit-versteckten-dateien-anzeigen-->-ls--la)
@@ -25,14 +27,7 @@
      * [Verzeichnisse und Dateien löschen](#verzeichnisse-und-dateien-löschen)
      * [Kopieren/Verschieben/Umbenennen von Dateien und Files](#kopierenverschiebenumbenennen-von-dateien-und-files)
      * [Arbeiten mit vi](#arbeiten-mit-vi)
-    
-  1. Prozesse 
-     * [Prozesse anzeigen - ps/pstree -p](#prozesse-anzeigen---pspstree--p)
-  1. Benutzer, Gruppen und Rechte 
-     * [Rechte](#rechte)
-     * [Dateien für Benutzer und Gruppen](#dateien-für-benutzer-und-gruppen)
-     * [Benutzer anlegen](#benutzer-anlegen)
-     * [sudo Benutzer erstellen](#sudo-benutzer-erstellen)
+  
   1. Dateimanipulation/Unix Tools
      * [Anfang oder Ende einer Datei/Ausgabe anzeigen](#anfang-oder-ende-einer-dateiausgabe-anzeigen)
      * [cat/head/tail-Beginn/Ende einer Datei anzeigen](#catheadtail-beginnende-einer-datei-anzeigen)
@@ -41,6 +36,17 @@
      * [Bestimmte Zeilen aus Datei anzeigen - grep](#bestimmte-zeilen-aus-datei-anzeigen---grep)
      * [Erweiterte Suche mit Grep](#erweiterte-suche-mit-grep)
      * [Finden von files nach Kriterien - find](#finden-von-files-nach-kriterien---find)
+  
+  1. Prozesse 
+     * [Prozesse anzeigen - ps/pstree -p](#prozesse-anzeigen---pspstree--p)
+     * [Alle Prozesse eines Dienstes anzeigen](#alle-prozesse-eines-dienstes-anzeigen)
+
+  1. Benutzer, Gruppen und Rechte 
+     * [Rechte](#rechte)
+     * [Dateien für Benutzer und Gruppen](#dateien-für-benutzer-und-gruppen)
+     * [Benutzer anlegen](#benutzer-anlegen)
+     * [sudo Benutzer erstellen](#sudo-benutzer-erstellen)
+  
   1. Logs/Loganalyse
      * [Logfile beobachten](#logfile-beobachten)
      * [Dienste debuggen](#dienste-debuggen)
@@ -52,6 +58,18 @@
      * [Die wichtigsten systemctl/service](#die-wichtigsten-systemctlservice)
      * [Systemctl - timers](#systemctl---timers)
      * [Gegenüberstellung service etc/init.d/ systemctl](#gegenüberstellung-service-etcinit.d-systemctl)
+     * [Default Editor systemctl setzen](#default-editor-systemctl-setzen)
+
+  1. Systemd 
+     * [Die wichtigen Tools für die Kommandozeile (ctl)](#die-wichtigen-tools-für-die-kommandozeile-ctl)
+
+  1. Firewall
+     * [Arbeiten mit firewalld](#arbeiten-mit-firewalld)
+
+  1. Systemadministration 
+     * [Hostname setzen/abfragen](#hostname-setzenabfragen)
+     * [ssh absichern](#ssh-absichern)
+
   1. Partitionierung und Filesystem
      * [parted and mkfs.ext4](#parted-and-mkfs.ext4)
   1. Boot-Prozess und Kernel 
@@ -61,20 +79,26 @@
   1. Hilfe 
      * [Hilfe zu Befehlen](#hilfe-zu-befehlen)
   1. Grafische Oberfläche und Installation 
-     * [Gnome unter Ubuntu installieren](#gnome-unter-ubuntu-installieren)
      * [X-Server - Ausgabe auf Windows umleiten](#x-server---ausgabe-auf-windows-umleiten)
      * [Installations-Images-Server](https://ubuntu.com/download/server#download)
   1. Wartung und Aktualisierung
      * [Aktualisierung des Systems](#aktualisierung-des-systems)
-     * [Paketmanager apt/dpkg](#paketmanager-aptdpkg)
+     * [Paketmanager yum](#paketmanager-yum)
      * [Archive runterladen und entpacken](#archive-runterladen-und-entpacken)
+     * [Apache installieren (firewall und selinux)](#apache-installieren-firewall-und-selinux)
   1. Firewall und ports
-     * [ufw (uncomplicated firewall)](#ufw-uncomplicated-firewall)
      * [firewalld](#firewalld)
      * [Scannen und Überprüfen mit telnet/nmap](#scannen-und-überprüfen-mit-telnetnmap)
   1. Netzwerk/Dienste 
      * [IP-Adresse von DHCP-Server holen (quick-and-dirty)](#ip-adresse-von-dhcp-server-holen-quick-and-dirty)
      * [Auf welchen Ports lauscht mein Server](#auf-welchen-ports-lauscht-mein-server)
+     * [Interface mit nmtu-edit verwalten - schneller Weg](#interface-mit-nmtu-edit-verwalten---schneller-weg)
+     * [Netzwerkinterface auf der Kommandozeile einrichten](#netzwerkinterface-auf-der-kommandozeile-einrichten)
+     * [Scannen mit nmap](#scannen-mit-nmap)
+  1. Podman 
+     * [Podman Walkthrough](#podman-walkthrough)
+  1. SELinux (Linux härten)
+     * [SELinux](#selinux)
   1. Tools/Verschiedens 
      * [Remote Desktop für Linux / durch Teilnehmer getestet](https://wiki.ubuntuusers.de/Remmina/)
      * [Warum umask 002 und 0002 ? - Geschichte](#warum-umask-002-und-0002----geschichte)
@@ -82,6 +106,11 @@
   1. Bash/Bash-Scripting 
      * [Einfaches Script zur Datumsausgabe](#einfaches-script-zur-datumsausgabe)
      * [Ausführen/Verketten von mehreren Befehlen](#ausführenverketten-von-mehreren-befehlen)
+     * [Example with date and if](#example-with-date-and-if)
+     * [Example with function and return value](#example-with-function-and-return-value)
+     * [Example with test and if](#example-with-test-and-if)
+     * [Example log function](#example-log-function)
+     * [Example Parameter auslesen](#example-parameter-auslesen)
   1. Timers/cronjobs 
      * [Cronjob - hourly einrichten](#cronjob---hourly-einrichten)
      * [cronjob (zentral) - crond](#cronjob-zentral---crond)
@@ -104,8 +133,16 @@
 
 ```
 Centos 
-Redhat.  — rpm / (yum / dnf) 
+Redhat.  — rpm / (yum / dnf)
+Oracle Linux 
 Fedora 
+
+## ab 2022 kann man Centos Linux nicht als vollwertigen Ersatz für Redhat verwenden 
+
+## ab 2022 sehr interessant bzw. unabdingbar 
+Rocky Linux
+Alma Linux 
+
 ```
 #### Debian Familie 
 
@@ -236,6 +273,7 @@ d directory
 l symbolischer Link 
 c Character-Device (Eingabegerät: Zeichenorientiert z.B. Tastatur)  
 b Block-Device (Ausgabegerät): Blockorientiert, z.B. Festplatte) 
+s socket (Für Kommunikation von client zu server / server zu client) auf der gleichen Maschine  
 ```
 
 <div class="page-break"></div>
@@ -246,7 +284,7 @@ b Block-Device (Ausgabegerät): Blockorientiert, z.B. Festplatte)
 
 
 ```
-## einloggen als normaler Benutzer z.B. benutzer: kurs 
+## einloggen als normaler Benutzer z.B. benutzer: kurs (wenn ich unter kurs eingeloggt bin) 
 sudo su -
 ## eingeben des Passworts des Benutzers
 ```
@@ -291,6 +329,8 @@ cat /etc/services | less
 /suchbegriff + RETURN
 ## nächstes Suchergebnis
 n 
+## voriger Suchergebnis 
+N
 ```
 
 ###  Springen ans Ende/an den Anfang  
@@ -363,10 +403,25 @@ which false
 ### Alias Befehle anzeigen
 
 
+### Alias anzeigen 
+
 ```
 ## keine wirkliche Befehle, sondern nur andere Schreibweise/Abkürzungen
 ## kann u.U. so auf anderen Distris nicht vorhanden sein
 alias 
+```
+
+### Alias - Befehl in der Session setzen
+
+```
+## Achtung, existiert nicht nacht schliessen der Session
+alias l3='ls -la | head -n 3'
+```
+
+### Alias-Befehl aufheben/löschen (unalias) 
+
+```
+unalias l3
 ```
 
 <div class="page-break"></div>
@@ -379,6 +434,8 @@ ldd /usr/bin/ls
 ```
 
 <div class="page-break"></div>
+
+### Ist ein Befehl extern, alias oder intern
 
 ## Dateien und Verzeichnisse
 
@@ -602,7 +659,9 @@ vimtutor # sollte bereits mit vi installiert worden sein.
   ESC + :q! # ESC Taste drücken, dann : und q! und enter 
   
   5b. Oder: Speichern und schliessen 
-  ESC + :x # ESC Taste drücken, dann : und w und enter 
+  ESC + :x # ESC Taste drücken, dann : und x und enter 
+  # oder
+  ESC + :wq # ESC Taste drücken, dann : und w und q
 ```  
 
 ### Virtual Mode 
@@ -641,120 +700,6 @@ STRG + w w
 ### Cheatsheet
 
 http://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf
-
-<div class="page-break"></div>
-
-## Prozesse 
-
-### Prozesse anzeigen - ps/pstree -p
-
-
-### Prozesse anzeigen 
-
-```
-ps -ef 
-ps aux  # x alle Prozesse anzeigen, die nicht an ein Terminal gebunden sind 
-```
-
-### systemctl (läuft Dienst) 
-
-```
-systemctl status sshd 
-
-```
-
-### Prozeßbaum anzeigen (meist nicht für die Praxis notwendig) 
-
-```
-pstree -p 
-```
-
-<div class="page-break"></div>
-
-## Benutzer, Gruppen und Rechte 
-
-### Rechte
-
-
-### Arten 
-
-```
-r = Lesen 
-w = Schreiben
-x = Ausführen 
-```
-
-### Aufbau triple 
-
-```
-kurs@ubuntu2004-101:~$ # rwx | rw- | r--
-kurs@ubuntu2004-101:~$ #  u    g      o
-kurs@ubuntu2004-101:~$ # 421 | 42- | 4--
-kurs@ubuntu2004-101:~$ #  7  |  6  | 4
-
-## rwx | rw- | r--
-##  u    g      o
-## 421 | 42- | 4--
-##  7  |  6  | 4
-```
-
-### Berechtigungen mit Symbolen setzen 
-
-```
-chmod g+w,o+r testfile
-```
-
-<div class="page-break"></div>
-
-### Dateien für Benutzer und Gruppen
-
-
-```
-cd /etc 
-cat passwd
-cat shadow
-cat group 
-
-kurs@ubuntu2004-104:/etc$ ls -la passwd shadow group
--rw-r--r-- 1 root root   1097 Mar 10 10:06 group
--rw-r--r-- 1 root root   3164 Mar 10 10:06 passwd
--rw-r----- 1 root shadow 1838 Mar 10 10:06 shadow
-
-
-```
-
-<div class="page-break"></div>
-
-### Benutzer anlegen
-
-
-### Benutzer anlegen (auf Ubuntu)  
-
-```
-## for shell script 
-useradd
-
-## for admins interactive
-adduser
-```
-
-<div class="page-break"></div>
-
-### sudo Benutzer erstellen
-
-
-### Benutzer zum Sudo benutzer machen
-
-```
-adduser newuser
-usermod -aG sudo newuser
-### testing 
-su - newuser
-groups # see if we are in groups sudo 
-id # shows the same but more info 
-## need to enter password here 
-sudo su -
-```
 
 <div class="page-break"></div>
 
@@ -803,13 +748,13 @@ tail --lines=20 /etc/services
 ### cat/head/tail-Beginn/Ende einer Datei anzeigen
 
 
-#### cat mit Zeilennumer 
+### cat mit Zeilennumer 
 
 ```
 cat -n /etc/services 
 ```
 
-#### Die ersten -x Zeilen anzeigen 
+### Die ersten -x Zeilen anzeigen 
 
 ```
 ## ersten 10 Zeilen anzeigen
@@ -817,6 +762,14 @@ head /etc/services
 
 ## Ersten 20 Zeilen 
 head -n 20 /etc/services  
+```
+
+### Die ersten 10 Zeilen / Variante mit cat
+
+```
+cat services | head 
+## mit zeilennummen 
+cat -n services | head 
 ```
 
 ### Die letzten -x Zeilen anzeigen 
@@ -829,12 +782,10 @@ tail /etc/services
 tail -n 40 /etc/services
 ```
 
-### Ausgabe der letzten Zeilen und ausgabe in Datei 
+### Ausgabe der letzten 10 Zeilen 
 
 ```
-cd /var/log 
-tail -n 100 syslog.1 >> fehlerlog 
-cat fehlerlog
+cat /etc/services | tail
 ```
 
 <div class="page-break"></div>
@@ -1033,6 +984,157 @@ find / -name tmpfiles.d -type d
 
 <div class="page-break"></div>
 
+## Prozesse 
+
+### Prozesse anzeigen - ps/pstree -p
+
+
+### Prozesse anzeigen 
+
+```
+ps -ef 
+ps aux  # x alle Prozesse anzeigen, die nicht an ein Terminal gebunden sind 
+```
+
+### systemctl (läuft Dienst) 
+
+```
+systemctl status sshd 
+
+```
+
+### Prozeßbaum anzeigen (meist nicht für die Praxis notwendig) 
+
+```
+pstree -p 
+```
+
+<div class="page-break"></div>
+
+### Alle Prozesse eines Dienstes anzeigen
+
+
+```
+## inkl header - 2 Befehle getrennt durch ';' 
+ps aux | head -n 1;  ps aux | grep mysqld | grep -v 'grep'
+
+
+### Ausgabe 
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+mysql      16938  0.0  1.1 1778456 94776 ?       Ssl  09:51   0:00 /usr/libexec/mysqld --basedir=/usr
+
+```
+
+<div class="page-break"></div>
+
+## Benutzer, Gruppen und Rechte 
+
+### Rechte
+
+
+### Arten 
+
+```
+r = Lesen 
+w = Schreiben
+x = Ausführen 
+```
+
+### Für welchen Bereich ? 
+
+```
+u = user 
+g = gruppe
+o = others (die anderen / die Welt) 
+a = für alle (d.h. gleichzeitig für u und g und o) 
+```
+
+### Aufbau triple 
+
+```
+kurs@ubuntu2004-101:~$ # rwx | rw- | r--
+kurs@ubuntu2004-101:~$ #  u    g      o
+kurs@ubuntu2004-101:~$ # 421 | 42- | 4--
+kurs@ubuntu2004-101:~$ #  7  |  6  | 4
+
+## rwx | rw- | r--
+##  u    g      o
+## 421 | 42- | 4--
+##  7  |  6  | 4
+```
+
+### Berechtigungen mit Symbolen setzen 
+
+```
+chmod g+w,o+r testfile
+```
+
+### Berechtigungen mit Octalzahlen setzen 
+
+```
+chmod 777 testfile
+```
+
+### Berechtigungen recursiv setzen 
+
+```
+chmod -R 777 testverzeichnis 
+```
+
+<div class="page-break"></div>
+
+### Dateien für Benutzer und Gruppen
+
+
+```
+cd /etc 
+cat passwd
+cat shadow
+cat group 
+
+kurs@ubuntu2004-104:/etc$ ls -la passwd shadow group
+-rw-r--r-- 1 root root   1097 Mar 10 10:06 group
+-rw-r--r-- 1 root root   3164 Mar 10 10:06 passwd
+-rw-r----- 1 root shadow 1838 Mar 10 10:06 shadow
+
+
+```
+
+<div class="page-break"></div>
+
+### Benutzer anlegen
+
+
+### Benutzer anlegen (auf Ubuntu)  
+
+```
+## for shell script 
+useradd
+
+## for admins interactive
+adduser
+```
+
+<div class="page-break"></div>
+
+### sudo Benutzer erstellen
+
+
+### Benutzer zum Sudo benutzer machen
+
+```
+adduser newuser
+usermod -aG sudo newuser
+### testing 
+su - newuser
+groups # see if we are in groups sudo 
+id # shows the same but more info 
+## need to enter password here 
+sudo su -
+```
+
+<div class="page-break"></div>
+
 ## Logs/Loganalyse
 
 ### Logfile beobachten
@@ -1065,18 +1167,22 @@ systemctl status mariadb.service
 jourrnalctl -xe
 
 ## Nicht fündig -> Schritt 3:
-journalctl -u mariadb.service 
+## -e springt ans Ende des Pages
+journalctl -e -u mariadb.service 
 
 ## Nicht fündig -> Schritt 4:
 ## Spezifisches Log von Dienst suchen 
 ## und evtl. LogLevel von Dienst hochsetzen
 ## z.B. bei mariadb (durch Internetrecherche herausfinden) 
-less /var/log/mysql/error.log 
+less /var/log/mariadb/mariadb.log 
+## oder schneller
+## Zeige alle Zeilen mit dem Wort error an (case insensitive) 
+## also auch z.B. ERROR 
+cat /var/log/mariadb/mariadb.log | grep -i error
+
 
 ## Nicht fündig -> Schritt 5
 ## Allgemeines Log
-## Debian/Ubuntu 
-/var/log/syslog
 ## REdhat/Centos 
 /var/log/messages 
 ```
@@ -1095,6 +1201,17 @@ cd /var/log/mysql
 cat error.log | grep -i error
 ```
 
+### Found wrong config-value, what now ?
+
+```
+## You know the wrong config value, but not 
+## where it is (in which file)
+## assuming gummitulpe is the wrong config value 
+grep -r gummitulpe /etc
+
+## Ausgabe
+/etc/my.cnf.d/mariadb-server.cnf:gummitulpe=/nix
+```
 
 <div class="page-break"></div>
 
@@ -1200,52 +1317,75 @@ journalctl -u ssh
 ### Die wichtigsten systemctl/service
 
 
-### systemctl Beispiele 
-```
-## Status eines Dienstes überprüfen 
-service sshd status 
-systemctl status sshd 
+### Welche Dienste sind aktiviert ?  
 
-## Wie heisst der Dienst / welche Dienste gibt es ? (nur wenn der service aktiviert ist). 
+```
+systemctl list-units --type=service
+## oder
 systemctl list-units -t service 
-## für apache
-systemctl list-units -t service | grep ^apache
-## die Abkürzung 
-systemctl -t service | grep ^apache
-
-## Wie finde ich einen service, der noch nicht aktiviert ist ? 
-systemctl list-unit-files -t service | grep ssh
-
-## Dienst aktivieren
-systemctl enable apache2 
-## Ist Dienst aktiviert 
-systemctl is-enabled apache2
-enabled
-echo $?
-0 # Wenn der Dienst aktiviert ist 
-
-## Dienst deaktivieren (nach Booten nicht starten)
-systemctl disable apache2
-systemctl is-enabled 
-disabled
-echo $?
-1 # 1 wenn nicht aktiviert
-
-## Rebooten des Servers
-## verweist auf systemctl 
-reboot
-systemctl reboot
-shutdown -r now  
-
-## Halt (ohne Strom ausschalten) 
-halt
-systemctl halt 
-shutdown -h now 
-
-## Poweroff 
-poweroff
-systemctl poweroff 
+## oder
+systemctl -t service 
 ```
+
+### Wie finde ich einen service, der noch nicht aktiviert ist ? 
+
+```
+systemctl list-unit-files -t service | grep mariadb
+```
+
+### Wie starte und stoppe ich einen Dienst ?
+
+```
+systemctl start httpd
+systemctl stop httpd 
+
+```
+
+### Wie ist die Konfiguration eines Dienstes ? 
+
+```
+systemctl cat sshd.service 
+
+```
+
+### Wie sehe ich den status eines Dienstes ? 
+
+```
+systemctl status sshd
+systemctl status sshd.service 
+
+## ältere Variante 
+service sshd status 
+
+```
+
+### Wie kann ich einen Dienst deaktivieren ? 
+
+```
+### d.h. dienst wird beim nächsten Boot nicht gestartet
+
+systemctl disable sshd.service
+## oder
+systemctl disable sshd 
+
+```
+
+### Wie sehe ich, ob eine Dienst aktiviert / deaktiviert ist ? 
+
+```
+systemctl is-enabled sshd.service 
+echo $?
+```
+
+### Dienst aktivieren ?
+
+```
+systemctl enable sshd.service 
+```
+
+
+
+
 
 ### Wie sehe ich, wie ein Service konfiguriert ist / Dienstekonfiguration anzeigen ? 
 
@@ -1299,9 +1439,9 @@ systemctl set-default multi-user
 ### Alle Target anzeigen in die ich reinwechseln kann (isolate) 
 
 ```
-## Ubuntu 
-grep -r "AllowIsolate" /lib/systemd/system 
-/lib/systemd/system/reboot.target
+## Redhat / centos  
+grep -r "AllowIsolate" /usr/lib/systemd/system 
+/usr/lib/systemd/system/reboot.target
 ...
 ...
 ...
@@ -1320,6 +1460,54 @@ systemctl unmask apache2
 ## kann wieder gestaret werden
 systemctl start apache2
 ```
+
+### systemctl - Diverse Beispiele 
+```
+## Status eines Dienstes überprüfen 
+service sshd status 
+systemctl status sshd 
+
+## Wie heisst der Dienst / welche Dienste gibt es ? (nur wenn der service aktiviert ist). 
+systemctl list-units -t service 
+## für apache
+systemctl list-units -t service | grep ^apache
+## die Abkürzung 
+systemctl -t service | grep ^apache
+
+## Wie finde ich einen service, der noch nicht aktiviert ist ? 
+systemctl list-unit-files -t service | grep ssh
+
+## Dienst aktivieren
+systemctl enable apache2 
+## Ist Dienst aktiviert 
+systemctl is-enabled apache2
+enabled
+echo $?
+0 # Wenn der Dienst aktiviert ist 
+
+## Dienst deaktivieren (nach Booten nicht starten)
+systemctl disable apache2
+systemctl is-enabled 
+disabled
+echo $?
+1 # 1 wenn nicht aktiviert
+
+## Rebooten des Servers
+## verweist auf systemctl 
+reboot
+systemctl reboot
+shutdown -r now  
+
+## Halt (ohne Strom ausschalten) 
+halt
+systemctl halt 
+shutdown -h now 
+
+## Poweroff 
+poweroff
+systemctl poweroff 
+```
+
 
 ### systemctl Cheatsheet 
 
@@ -1425,6 +1613,260 @@ Systemd
 ## geht auch (unter der Haube wird systemctl verwendet) 
 service rsyslog status 
 
+
+```
+
+<div class="page-break"></div>
+
+### Default Editor systemctl setzen
+
+
+```
+## In der Session 
+export SYSTEMD_EDITOR=vim
+
+
+## in /root/.bashrc eintragen, wird dann bei jedem neuen Aufruf von bash z.B. sudo su - geladen
+export SYSTEMD_EDITOR=vim
+
+```
+
+<div class="page-break"></div>
+
+## Systemd 
+
+### Die wichtigen Tools für die Kommandozeile (ctl)
+
+
+```
+## Oben die wichtigsten
+systemctl 
+journalctl # systemd logfiles abfragen
+hostnamectl # Hostname einstellen
+timedatectl 
+localectl # locales konfigurieren
+```
+
+<div class="page-break"></div>
+
+## Firewall
+
+### Arbeiten mit firewalld
+
+
+### Install firewalld
+
+
+```
+## on centos/redhat firewalld should installed
+systemctl status firewalld
+
+## if not, just do it 
+yum install firewalld
+
+```
+
+
+### Is firewalld running ?
+```
+## is it set to enabled ?
+systemctl status firewalld 
+firewall-cmd --state
+```
+
+### Command to control firewalld 
+  
+  * firewall-cmd 
+
+### Best way to add a new rule 
+```
+## Step1: do it persistent -> written to disk 
+firewall-cmd --add-port=82/tcp --permanent  
+
+## Step 2: + reload firewall 
+firewall-cmd --reload 
+```
+
+### Zones documentation 
+
+man firewalld.zones 
+
+### Zones available 
+
+```
+firewall-cmd --get-zones 
+block dmz drop external home internal public trusted work
+```
+
+### Active Zones 
+
+```
+firewall-cmd --get-active-zones
+```
+
+### Show information about all zones that are used 
+```
+firewall-cmd --list-all 
+firewall-cmd --list-all-zones 
+```
+
+
+### Add Interface to Zone ~ Active Zone 
+
+```
+firewall-cmd --zone=public --add-interface=enp0s3 --permanent 
+firewall-cmd --reload 
+firewall-cmd --get-active-zones 
+public
+  interfaces: enp0s3
+
+```
+### Default Zone 
+
+```
+## if not specifically mentioned when using firewall-cmd
+## .. add things to this zone 
+firewall-cmd --get-default-zone
+public
+
+```
+
+### Show services 
+```
+firewall-cmd --get-services 
+```
+
+### What ports a opened in a service 
+
+```
+## Example ssh 
+cd /usr/lib/firewalld/services 
+cat ssh.xml 
+```
+
+### Adding/Removing a service 
+
+```
+firewall-cmd --permanent --zone=public --add-service=ssh
+firewall-cmd --reload 
+firewall-cmd --permanent --zone=public --remove-service=ssh
+firewall-cmd --reload 
+```
+
+### Add/Remove ports 
+```
+## add port
+firewall-cmd --add-port=82/tcp --zone=public --permanent
+firewall-cmd --reload
+
+## remove port
+firewall-cmd --remove-port=82/tcp --zone=public --permanent
+firewall-cmd --reload
+```
+
+### Enable / Disabled icmp 
+```
+firewall-cmd --get-icmptypes
+## none present yet 
+firewall-cmd --zone=public --add-icmp-block-inversion --permanent
+firewall-cmd --reload
+```
+
+### Working with rich rules 
+```
+## Documentation 
+## man firewalld.richlanguage
+
+## throttle connectons 
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
+firewall-cmd --reload # 
+firewall-cmd --zone=public --list-all
+
+## port forwarding 
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
+firewall-cmd --reload 
+firewall-cmd --zone=public --list-all
+firewall-cmd --remove-service=ssh --zone=public
+
+## 
+
+
+## list only the rich rules 
+firewall-cmd --zone=public --list-rich-rules
+
+## persist all runtime rules 
+firewall-cmd --runtime-to-permanent
+
+
+
+
+```
+
+
+### References 
+
+  * https://www.ispcolohost.com/2016/07/25/blocking-outgoing-ports-with-firewalld/
+  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
+  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
+
+<div class="page-break"></div>
+
+## Systemadministration 
+
+### Hostname setzen/abfragen
+
+
+```
+## Abfragen 
+hostnamectl
+hostnamectl set-hostname centos4.training.local  
+hostnamectl 
+## Trick für prompt - ist in der aktuellen, erst nach neueinloggen/bzw. neuer bash aktiv 
+su - root # bzw. su - benutzer 
+```
+
+<div class="page-break"></div>
+
+### ssh absichern
+
+
+### sshd_config // Server
+
+```
+##/etc/ssh/sshd_config 
+X11Forwarding no
+
+## if possible - no one can login with password
+PasswordAuthentication no 
+PermitRootLogin no 
+## user must belong to a specific group to be allowed to login
+AllowGroups wheel
+## if sftp is not need comment it - defaults to no 
+## Subsystem     sftp    /usr/libexec/openssh/sftp-server
+```
+
+```
+Restart sshd 
+systemctl restart sshd 
+```
+
+### Setup private/public key authentication 
+
+```
+## Authentication with password must be possible
+## When setting it up 
+## Disable PasswordAuthentication afterwards 
+
+## server2 client 
+## as user kurs
+ssh-keygen 
+## set password set important
+ssh-copy-id kurs@server1 
+
+### Now you can login with public/private key 
+ssh kurs@server1 
 
 ```
 
@@ -1600,16 +2042,6 @@ N # letzter Treffer
 
 ## Grafische Oberfläche und Installation 
 
-### Gnome unter Ubuntu installieren
-
-
-```
-sudo apt install tasksel 
-sudo tasksel install ubuntu-desktop 
-```
-
-<div class="page-break"></div>
-
 ### X-Server - Ausgabe auf Windows umleiten
 
 
@@ -1640,78 +2072,59 @@ apt-get dist-upgrade
 
 <div class="page-break"></div>
 
-### Paketmanager apt/dpkg
+### Paketmanager yum
 
 
-### Alle Pakete anzeigen, die installiert sind auf dem System 
-
-```
-dpkg -l 
-## oder 
-apt list --installed
-```
-
-### Alle Paket die zur Verfügung stehen 
+### Mögliche Paket anzeigen (die installiert sind und installiert werden können)
 
 ```
-apt list 
+yum list
 ```
 
-### Wo sind die Repos konfiguriert 
+### Installierte Pakete anzeigen 
 
 ```
-cat /etc/apt/sources.list 
-cd /etc/apt/sources.list.d 
+yum list --installed 
 ```
 
-
-### Paket deinstallieren und aufräumen 
-
-```
-## mit konfigurationsdateien deinstallieren
-apt purge mariadb-server 
-## konfgiurationsdateien stehen lassen
-apt remove mariadb-server 
-
-## Aufräumen / alle Pakete die nicht mehr benötigt werden
-apt autoremove 
-```
-
-### Pakete händisch mit dpkg installieren 
+### Herausfinden, wie ein Paket heisst, dass ich installieren will
 
 ```
-## Schritt 1: Im Browser
-## Paket online finden und Link kopieren (Browser - Rechte Mauataste Link kopieren) 
-
-## Schritt 2: auf dem Linux Server
-sudo apt install wget
-cd /usr/src
-wget http://archive.ubuntu.com/ubuntu/pool/main/a/acl/acl_2.2.53-10build1_amd64.deb
-sudo dpkg -i acl_2.2.53-10build1_amd64.deb
-```
-
-### Pakete mit apt search suchen 
-
-```
-## Vorbereitung
-apt update
-
-## suche nache apache 
-apt search apache 
-## mit pager
-apt search apache | less 
-
-## Alle Paket in denen apache am Anfang der Zeile fehlt 
-apt search ^apache | less
+yum list | grep mariadb 
 
 ```
 
-## Installieren mit apt install 
+### Ist ein Paket installiert 
 
 ```
-## mit genauem Namen 
-apt install apache2 
+yum list --installed | grep mariadb 
 ```
+
+### Nach einem Paket suchen 
+
+```
+yum search mariadb 
+
+```
+
+### Infos zu einem Paket abrufen 
+
+```
+yum info mariadb-server
+```
+
+### Welche Programmpaket installiert ein bestimmtes Programm
+
+```
+## Beispiel sealert 
+yum whatprovides sealert 
+
+```
+
+
+### Cheatsheet
+
+  * https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
 
 <div class="page-break"></div>
 
@@ -1736,74 +2149,119 @@ tar xvf master.tar.gz
 
 <div class="page-break"></div>
 
-## Firewall und ports
-
-### ufw (uncomplicated firewall)
+### Apache installieren (firewall und selinux)
 
 
-### Läuft der Dienst für die Firewall 
+### Walkthrough 
 
 ```
-systemctl status ufw 
+### Schritt 1:
+## suche // apache heisst auf centos httpd
+yum search httpd
+## oder
+dnf search httpd
+
+### Schritt 2: 
+yum install httpd 
+
+### Wie heisst der Dienst und Starten und Enablen (für nächsten Reboot)  
+yum list-unit-files --type=service | grep httpd
+systemctl enable httpd 
+systemctl start httpd 
+
+### Schritt 3: 
+## Konfiguration anpassen
+## /etc/httpd/conf/httpd.conf # Hauptkonfigurationsdatei
+## Änderungen mit Editor vornehmen z.B. nano 
+cd /etc/httpd/conf/httpd.conf; nano httpd.conf 
+## Danach Neustart oder Reload 
+## Restart funktioniert immer
+systemctl restart httpd 
+
+### Schritt 4:
+## Firewall freigeben 
+## D.h. welche zone ist active -> public 
+firewall-cmd --get-active-zones  
+## konfigurieren 
+firewall-cmd --add-service=http --permanent 
+firewall-cmd --add-service=https --permanent 
+firewall-cmd --reload 
+
+### Schritt 5: 
+## Mit Browser testen 
 ```
 
-### Ist die Firewall scharfgeschaltet ? 
+### Apache started nicht wg Port-Änderung (Port: 82)  - Quick and Dirty Lösung
 
 ```
-ufw status
+## /etc/httpd/httpd.conf
+## zeile hinzufügen 
+Listen 82
+
+## Es kommt ein Fehler bei Apache port 82 (Listen 82) 
+systemctl restart httpd
+
+## Schritt 1: Prüfen, ob selinux aktiv ist
+sestatus # Sucht 2 Einträgen enforcing 
+
+## Schritt 2: selinux testweise abschalten 
+setenforce 0 # das heisst, regeln werden protokolliert, aber nicht durchgesetzt 
+
+## Schritt3: 
+systemctl restart httpd 
+
+## Wenn das der Fall ist, selinux deaktivieren 
+/etc/selinux/config 
+## mit editor 
+SELINUX=permissive
+## oder wenn man generell selinux nicht einsetzten möchte:
+SELINUX=disabled 
+## Danach rebooten 
 ```
 
-### Firewall aktivieren (Achtung ssh) 
+### Apache started nicht wg Port-Änderung (Port: 82)  - Nice and Smooth (better!) 
 
 ```
-## Neue ssh - Verbindungen werden nicht angenommen 
-## Bestehende Bedingungen (ESTABLISHED) bleiben erhalten 
-ufw enable 
-ufw status 
-```
+## Falls sealert nicht installiert ist -> sealert -> command not found 
+yum whatprovides sealert 
 
-### Port hinzufügen 
+sealert -a /var/log/audit/audit.log > /root/report
+## In der Datei finden wir Handlungsanweisungen 
 
-```
-ufw allow 22 # for tcp and udp
-## or 
-ufw allow ssh # uses /etc/services for detection of port - number
-ufw status 
-```
+## Welche port-typen gibt es für http
+semanage port -l | grep http
+## Wir entscheiden uns für http_port_t weil hier auch die 80 auftaucht 
+semanage port -a -t http_port_t -p tcp 82 
+setenforce 1 
+systemctl restart httpd 
 
-### Port wieder rausnehmen 
+## Don't forget to add firewall rules 
+firewall-cmd --list-all # is the port listed here ? 
+firewall-cmd --add-port=82/tcp --zone=public --permanent # Sets in configuration but not in runtime 
+firewall-cmd --reload 
 
-```
-ufw delete allow http
-ufw delete allow ssh
-ufw delete allow 22 
+## Now test with and your public ip 
+## get it with 
+ip a 
 
-## ufw status numbered 
-## e.g. 
-ufw delete 1 
 ```
 
 <div class="page-break"></div>
 
+## Firewall und ports
+
 ### firewalld
 
 
-### Install firewalld and restrict ufw 
+### Install firewalld
+
 
 ```
-## Schritt 1: ufw deaktivieren 
-systemctl stop ufw
-systemctl disable ufw 
-ufw disable # zur Sicherheit 
-ufw status
-## -> disabled # this has to be the case 
+## on centos/redhat firewalld should installed
+systemctl status firewalld
 
-## Schritt 2: firewalld 
-apt install firewalld 
-systemctl start firewalld 
-systemctl enable firewalld 
-systemctl status firewalld 
-systemctl status ufw 
+## if not, just do it 
+yum install firewalld
 
 ```
 
@@ -1843,7 +2301,6 @@ block dmz drop external home internal public trusted work
 
 ```
 firewall-cmd --get-active-zones
-## in our case empty 
 ```
 
 ### Show information about all zones that are used 
@@ -1877,6 +2334,15 @@ public
 ```
 firewall-cmd --get-services 
 ```
+
+### What ports a opened in a service 
+
+```
+## Example ssh 
+cd /usr/lib/firewalld/services 
+cat ssh.xml 
+```
+
 ### Adding/Removing a service 
 
 ```
@@ -1940,6 +2406,7 @@ firewall-cmd --runtime-to-permanent
 
 ### References 
 
+  * https://www.ispcolohost.com/2016/07/25/blocking-outgoing-ports-with-firewalld/
   * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
   * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
 
@@ -1971,6 +2438,274 @@ ip a
 lsof -i 
 ## alternative
 netstat -tupel
+```
+
+<div class="page-break"></div>
+
+### Interface mit nmtu-edit verwalten - schneller Weg
+
+
+```
+## Achtung: richtigen profilnamen verwenden
+## einsehbar über nmtui oder
+nmcli conn show 
+## z.B. wenn enp0s9 als profil vorhanden ist 
+nmtui-edit enp0s8 
+```
+
+<div class="page-break"></div>
+
+### Netzwerkinterface auf der Kommandozeile einrichten
+
+
+### Verbindungen anzeigen 
+
+```
+nmcli connection show
+## or 
+nmcli conn show 
+```
+
+### Netzwerk-Interface statisch auf Server neu einrichten (server 2)
+
+```
+## muss in der Liste sichtbar sein 
+nmcli con add type ethernet con-name enp0s9 ifname enp0s9 ipv4.method manual ipv4.addresses 192.168.1.2/24
+nmcli con mod enp0s9 autoconnect yes
+
+## verbindung neu hochziehen
+nmcli con up enp0s9
+
+## verbindungseigenschaften anzeigen
+nmcli con show 
+
+```
+
+### Netzwerk-Interface statisch auf Server neu einrichten (server 3)
+
+```
+## muss in der Liste sichtbar sein 
+nmcli con add type ethernet con-name enp0s9 ifname enp0s9 ipv4.method manual ipv4.addresses 192.168.1.3/24
+nmcli con mod enp0s9 autoconnect yes
+
+## verbindung neu hochziehen
+nmcli con up enp0s9
+
+## verbindungseigenschaften anzeigen
+nmcli con show 
+
+```
+
+### Netzwerk-Interface modifizieren (server 3) 
+
+```
+## muss in der Liste sichtbar sein 
+nmcli con add type ethernet con-name enp0s9 ifname enp0s9 ipv4.method manual ipv4.addresses 192.168.1.3/24
+nmcli con mod enp0s9 autoconnect yes
+
+## verbindung neu hochziehen
+nmcli con up enp0s9
+
+## verbindungseigenschaften anzeigen
+nmcli con show 
+
+## is ip gesetzt ?
+ip a
+
+```
+
+
+
+
+
+
+### Ref:
+
+  * https://www.howtoforge.de/anleitung/wie-man-eine-statische-ip-adresse-unter-centos-8-konfiguriert/
+
+<div class="page-break"></div>
+
+### Scannen mit nmap
+
+
+### Scan Range 
+
+```
+nmap -PE 192.168.1.2-5
+```
+
+<div class="page-break"></div>
+
+## Podman 
+
+### Podman Walkthrough
+
+
+### Aufbau (Wirkweise) 
+
+![Aufbau Containerverwendung](docker-podman.jpg)
+
+### Walkthrough 
+
+```
+## runtergeladenen images
+podman images
+## image von online ziehen (registry) 
+## Sucht bei redhat danach bei docker.io 
+podman pull alpine:latest
+## Image ist jetzt lokal vorhanden 
+podman images
+## Container mit diesem image starten
+podman run --name=myalpine alpine
+## Prozess läuft nicht mehr, da bereits beendet 
+podman ps
+## hiermit werden alle prozesse angezeigt auch die beendeten.
+podman ps -a
+
+## Beendeten container löschen über container - id (muss eindeutig sein bei z.B. 2 Ziffern) 
+podman rm 08
+## liste der container ist jetztleer
+podman ps -a 
+
+```
+
+### Container interactive mit terminal 
+
+```
+## das sind die Optionen -i -t 
+podman run -it --name=myalpine2 alpine
+
+```
+
+### Walkthrough II
+
+```
+## interactive mit terminal und detached
+## Detached - es läuft weiter im hintergrund 
+podman run -dit --name=myalpine3 alpine
+## in maschine reinwechseln, Kommanda ls -la ausführen
+## danach wieder raus
+podman exec -it myalpine3 ls -la
+
+podman ps -a
+
+## geht nicht, weil es im container keine bash gibt
+## das ist bei alpine der fall, hier gibt es nur busybox
+podman exec -it myalpine3 bash
+
+## einen sh - befehl gibt in jedem Linux
+## dieser verweist auf die aktuelle Shell
+podman exec -it myalpine3 sh
+
+## Die Ausgabe des ersten Befehls wird geloggt 
+podman run -it --name=myalpine4 alpine ls -la
+## Logs anzeigen 
+podman logs myalpine4
+
+```
+
+### Configuration abfragen
+
+```
+## Alle Konfigurationen
+podman inspect myalpine3 
+## oder container id
+podman inspect a23e
+
+podman inspect -f "{{.NetworkSettings.IPAddress}}" myalpine3
+10.88.0.7
+
+
+
+```
+
+### Aufräumen (tabula rasa) 
+
+```
+## alle container und die, die noch laufen, vorher stoppen
+podman rm -a --force 
+
+## alle runtergeladenen images löschen
+podman rmi -a 
+```
+
+### Image bauen 
+
+```
+mkdir myimage
+cd myimage
+```
+
+
+```
+## vi Dockerfile beispiel ubuntu mit folgendem Inhalt 
+FROM ubuntu:20.04
+
+RUN apt-get update
+RUN apt-get install -y nginx
+
+ENV NEW_MODE laola
+ENV TRAINING_VERSION 1.0 
+```
+
+```
+FROM centos:latest
+
+RUN yum install -y nginx 
+ENV NEW_MODE laola
+ENV TRAINING_VERSION 1.0 
+```
+
+```
+## choose any name for the image with -t 
+## does not need to be the directory name 
+podman build -t myimage . 
+
+## image als Basis für einen container verwenden 
+podman run -dit --name mycontainer myimage 
+
+## Now work in the container if you want 
+podman exec -it mycontainer bash 
+### do whatever you want in the container 
+### e.g. env
+```
+
+<div class="page-break"></div>
+
+## SELinux (Linux härten)
+
+### SELinux
+
+
+### sestatus
+
+ * Zeigt an, obwohl selinux aktiviert und wie
+
+### Modi 
+
+ * disabled 
+ * enforcing (enabled)
+ * permissive (enabled) 
+
+### Persistente Konfiguration 
+
+```
+/etc/selinux/config
+```
+### Dateien mit context anzeigen
+
+```
+ls -laZ 
+```
+
+### Für nächsten Boot Kontext-Labels neu setzen 
+
+```
+## als root
+cd / 
+touch .autorelabel 
+reboot
+## Achtung relabeln kann dauern !!! durchaus 5 Minuten 
 ```
 
 <div class="page-break"></div>
@@ -2059,6 +2794,16 @@ befehl1 || befehl2
 
 <div class="page-break"></div>
 
+### Example with date and if
+
+### Example with function and return value
+
+### Example with test and if
+
+### Example log function
+
+### Example Parameter auslesen
+
 ## Timers/cronjobs 
 
 ### Cronjob - hourly einrichten
@@ -2144,11 +2889,16 @@ ls -la /var/log/scripting.log
 
 ### Literatur
 
+
 ### Literatur 
 
   * [Linux Grundlagen für Anwender und Administratoren](https://www.tuxcademy.org/product/grd1/)
   * [Linux Systemadministration I für Anwender und Administratoren](https://www.tuxcademy.org/download/de/adm1/adm1-de-manual.pdf)
   * [Alle Unterlagen](https://www.tuxcademy.org/media/all/)
+
+### Linux Sicherheit 
+
+  * [Linux Sicherheit - inkl SELinux](http://schulung.t3isp.de/documents/linux-security.pdf)
 
 ### Cheatsheet 
 
@@ -2157,7 +2907,7 @@ ls -la /var/log/scripting.log
 
 ### Bash - Programmierung 
 
-  * [Bash Programmierung]https://tldp.org/LDP/Bash-Beginners-Guide/html/
+  * [Bash Programmierung](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
   * [Bash Advanced Programmierung](https://tldp.org/LDP/abs/html/loops1.html)
 
 <div class="page-break"></div>
