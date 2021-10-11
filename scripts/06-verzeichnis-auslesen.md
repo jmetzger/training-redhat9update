@@ -1,6 +1,6 @@
 # Verzeichnis auslesen
 
-´´´
+```
 #!/bin/bash
 
 cd /etc
