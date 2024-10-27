@@ -12,8 +12,8 @@
      * [Redhat 9 - LivePatching Kernel - now in WebConsole](feature/live-patching-kernel-in-webconsole/overview.md)
     
   1. Changes Network / Security 
-     * [iptables vs. nftables - What has changed]()
-     * [iptables vs. nftables - migrate]()
+     * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
+     * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
 
 ## Backlog 
 
