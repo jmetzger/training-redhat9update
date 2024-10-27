@@ -7,6 +7,9 @@
 
   1. Redhat Alternativen
      * [Überblick](distros/overview-in-comparision-to-rhel8.md)
+    
+  1. Redhat 9 - New Features
+     * [Redhat 9 - LivePatching Kernel](feature/live-patching-kernel/overview.md)
 
 
 ## Backlog 
