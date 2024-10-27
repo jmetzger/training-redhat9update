@@ -11,7 +11,7 @@ cd podtest
 ```
 
 ```
-nano pod.yaml 
+nano pod.yml 
 ```
 
 ```
@@ -37,6 +37,12 @@ all:
   hosts:
     redhat-node.training.local:
        ansible_host: 192.168.56.108
+  vars:
+    podman_kube_specs:
+      - state: started
+        run_as_user: ansible
+        run_as_group: ansible
+        kube_file_src: pod.yml
 ```
 
 ```
