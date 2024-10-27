@@ -50,11 +50,36 @@ dnf install @postgresql
 dnf install @postgresql:15
 ```
 
-### Step 5: Switch to a different version 
+### Step 5: Switch to a newer version 
 
 ```
-# Install postgresql - version 
+dnf reset module postgresql
+# this does not yet install the components
+dnf list --installed | grep postgresql
+```
 
+```
+# now install the newer version
+dnf install @postgresql:16
+dnf list --installed | grep postgresql 
+```
+
+```
+# just to be sure, all modules do have the proper version
+dnf distro-sync 
+```
+
+### Step 6: switch back to version 15 
+
+```
+dnf reset module postgresql
+dnf install @postgresql:15
+```
+
+```
+# now check for the installed version
+dnf list --installed | grep postgresql
+```
 
 ## Reference 
 
