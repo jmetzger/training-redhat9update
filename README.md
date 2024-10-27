@@ -3,8 +3,10 @@
 ## Agenda 
 
   1. appstream
-     * [Overview / Exercise appstream](application_streams/overview.md=
+     * [Overview / Exercise appstream](application_streams/overview.md)
 
+  1. Redhat Alternativen
+     * [Überblick](distros/overview-in-comparision-to-rhel8.md)
 
 
 ## Backlog 
