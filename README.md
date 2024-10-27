@@ -1,6 +1,13 @@
-# Redhat Linux Grundlagen
+# Redhat Linux 9 (Upgrade from Redhat 8)
 
 ## Agenda 
+
+  1. appstream
+     * [Overview / Exercise appstream](application_streams/overview.md=
+
+
+
+## Backlog 
 
   1. Distributionen 
      * [Überblick](overview-distros.md)
