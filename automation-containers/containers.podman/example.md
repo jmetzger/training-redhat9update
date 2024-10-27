@@ -29,12 +29,12 @@ nano playbook.yml
       state: present
   - name: Pull an image
     containers.podman.podman_image:
-      name: httpd
+      name: docker.io/library/httpd
   - name: Copying file into home
     copy:
       src: /root/ws1/index.html
       dest: /home
-  - name: Re-create a redis container
+  - name: Re-create a httpd container
     containers.podman.podman_container:
       name: web
       image: httpd
