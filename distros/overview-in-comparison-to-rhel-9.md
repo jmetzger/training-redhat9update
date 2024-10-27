@@ -1,6 +1,6 @@
 # (Family-) Distros in comparison to REL 9 
 
-## Centos 9 Stream (seit 
+## Centos 9 Stream
 
   * CentOS Stream dient als Upstream-Entwicklungsplattform für kommende Produktreleases von Red Hat® Enterprise Linux.
 public development branch for RHEL. Specifically, CentOS Stream 8 is the upstream for the next minor release of RHEL 8, CentOS Stream 9 for the next minor release of RHEL 9, and so on.
@@ -53,4 +53,19 @@ pristine upstream packages, and RHEL SRPMS.”
 ```
 
 ## AlmaLinux 
+
+### Overview
+
+```
+Eine Open-Source-Linux-Distribution, die sich im Besitz der Community befindet
+und von der Community verwaltet wird, sich auf langfristige Stabilität konzentriert
+und eine robuste Plattform für die Produktion bietet. AlmaLinux OS ist binärkompatibel mit RHEL.®
+...
+Quote from Webpage
+```
+
+
+### Reference:
+
+  * https://almalinux.org/de/
 
