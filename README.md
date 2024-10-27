@@ -9,8 +9,11 @@
      * [Überblick](distros/overview-in-comparision-to-rhel8.md)
     
   1. Redhat 9 - New Features
-     * [Redhat 9 - LivePatching Kernel](feature/live-patching-kernel/overview.md)
-
+     * [Redhat 9 - LivePatching Kernel - now in WebConsole](feature/live-patching-kernel-in-webconsole/overview.md)
+    
+  1. Changes Network / Security 
+     * [iptables vs. nftables - What has changed]()
+     * [iptables vs. nftables - migrate]()
 
 ## Backlog 
 
