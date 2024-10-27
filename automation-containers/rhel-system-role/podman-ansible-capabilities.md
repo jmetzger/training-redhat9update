@@ -135,7 +135,7 @@ all:
 ```
 
 ```
-nano system-roles.yaml 
+nano system-roles.yml 
 ```
 
 ```
