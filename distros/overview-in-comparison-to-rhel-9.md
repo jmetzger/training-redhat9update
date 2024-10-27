@@ -1,4 +1,10 @@
-# (Family-) Distros in comparison to REL 9 
+# (Family-) Distros in comparison to REL 9 ung 
+
+## Zur Erklärung binärkompatibel 
+
+```
+Zwei Betriebssysteme sind binärkompatibel, wenn jedes Programm, das für das eine Betriebssystem kompiliert wurde, ohne erneutes Kompilieren sofort auf dem anderen Betriebssystem lauffähig ist.
+```
 
 ## Centos 9 Stream
 
