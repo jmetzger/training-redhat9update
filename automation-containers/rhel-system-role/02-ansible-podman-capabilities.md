@@ -2,7 +2,7 @@
 
 ## Requirements: Last exercise 01-ansible......
 
-## Simple pod 
+## Step 1: on master: Simple pod 
 
 ```
 cd
@@ -58,4 +58,15 @@ nano system_roles.yml
 
 ```
 ansible-playbook -i inventory.yml -b system_roles.yml
+```
+
+## Step 2: on node: check capabilities
+
+```
+## Step 5: On node 
+
+```
+# we will enter the container and look for capabilities
+# They are all dropped. 
+podman exec -it alpine-cont cat /proc/1/status | grep -i cap
 ```
