@@ -14,6 +14,9 @@
   1. Changes Network / Security 
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
      * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
+    
+  1. Containers / Automation
+     * [Capalities with Ansible/Podman](automation-containers/rhel-system-role/podman-ansible-capabities.md)
 
 ## Backlog 
 
