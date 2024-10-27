@@ -59,7 +59,7 @@ ansible-playbook playbook.yml
 ## Step 4: Try with alpine 
 
 ```
-nano playbook-ansible.yml
+nano playbook-alpine.yml
 ```
 
 ```
@@ -83,9 +83,13 @@ nano playbook-ansible.yml
 ```
 
 ```
-ansible-playbook playbook-ansible.yml
+ansible-playbook playbook-alpine.yml
 ```
 
+```
+# now let us have a look into the capabilities
+podman exec -it web cat /proc/1/status | grep -i cap
+```
 
 
 
