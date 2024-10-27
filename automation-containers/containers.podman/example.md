@@ -16,6 +16,10 @@ cd playtest
 ```
 
 ```
+echo "hallo welt" > index.html 
+```
+
+```
 nano playbook.yml
 ```
 
@@ -32,7 +36,7 @@ nano playbook.yml
       name: docker.io/library/httpd
   - name: Copying file into home
     copy:
-      src: /root/ws1/index.html
+      src: /root/playtest/index.html
       dest: /home
   - name: Re-create a httpd container
     containers.podman.podman_container:
