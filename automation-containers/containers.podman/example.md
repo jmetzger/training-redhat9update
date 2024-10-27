@@ -7,13 +7,14 @@ dnf install ansible-core
 ansible-galaxy collection install containers.podman
 ```
 
-## Step 2: Create playbook 
+## Step 2: Create project folder  
 
 ```
 cd
 mkdir playtest
 cd playtest
 ```
+## Step 3: create playbook 
 
 ```
 echo "hallo welt" > index.html 
@@ -54,6 +55,38 @@ nano playbook.yml
 ```
 ansible-playbook playbook.yml
 ```
+
+## Step 4: Try with alpine 
+
+```
+nano playbook-ansible.yml
+```
+
+```
+---
+- hosts: localhost
+  tasks:
+  - name: Pull an image
+    containers.podman.podman_image:
+      name: docker.io/library/alpine
+  - name: create a podman container 
+    containers.podman.podman_container:
+      name: web
+      image: docker.io/library/alpine
+      command:
+        - sleep
+        - infinity
+      cap_drop:
+        - ALL
+      state: started
+      detach: true
+```
+
+```
+ansible-playbook playbook-ansible.yml
+```
+
+
 
 
 ## Reference: 
