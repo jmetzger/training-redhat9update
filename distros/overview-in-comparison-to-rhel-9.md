@@ -13,6 +13,11 @@ public development branch for RHEL. Specifically, CentOS Stream 8 is the upstrea
 ## OracleLinux 
 
 
+```
+Oracle Linux Support. Oracle Linux, das 100 % anwendungs-binärkompatibel mit Red Hat Enterprise Linux ist, 
+```
+
+  * Quote: https://www.oracle.com/de/linux/
 
 ## Rocky 
 
