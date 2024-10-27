@@ -154,6 +154,14 @@ nano system_roles.yml
 ansible-playbook -i inventory.yml -b system_roles.yml
 ```
 
+## Step 5: On node 
+
+```
+# we will enter the container and look for capabilities
+# They are all dropped. 
+podman exec -it alpine-cont cat /proc/1/status | grep -i cap
+```
+
 ### Reference:
 
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/automating_system_administration_by_using_rhel_system_roles/assembly_preparing-a-control-node-and-managed-nodes-to-use-rhel-system-roles_automating-system-administration-by-using-rhel-system-roles
