@@ -158,8 +158,4 @@ ansible-playbook -i inventory.yml -b system_roles.yml
 
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/automating_system_administration_by_using_rhel_system_roles/assembly_preparing-a-control-node-and-managed-nodes-to-use-rhel-system-roles_automating-system-administration-by-using-rhel-system-roles
 
-
-
-## Reference: 
-
   * https://www.redhat.com/en/blog/automating-podman-rhel-system-roles
