@@ -12,6 +12,7 @@
      * [Redhat 9 - LivePatching Kernel - now in WebConsole](feature/live-patching-kernel-in-webconsole/overview.md)
      * [Redhat container tools - new streams](feature/redhat-container-tools/overview.md)
      * [Rootless Container, now supported](feature/redhat-container-tools/rootless-containers/overview.md)
+     * [rpm - default compression zstd](feature/rpm-zstd/overview.md)
     
   1. Changes Network / Security 
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
