@@ -27,6 +27,4 @@ podman run --rm -it alpine id
 
 ## Reference
 
-```
-https://docs.redhat.com/de/documentation/red_hat_enterprise_linux/9/html-single/building_running_and_managing_containers/index#proc_setting-up-rootless-containers_assembly_starting-with-containers
-```
+  * https://docs.redhat.com/de/documentation/red_hat_enterprise_linux/9/html-single/building_running_and_managing_containers/index#proc_setting-up-rootless-containers_assembly_starting-with-containers
