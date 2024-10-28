@@ -10,7 +10,8 @@
     
   1. Redhat 9 - New Features
      * [Redhat 9 - LivePatching Kernel - now in WebConsole](feature/live-patching-kernel-in-webconsole/overview.md)
-     * [Redhat container tools](feature/redhat-container-tools/overview.md)
+     * [Redhat container tools - new streams](feature/redhat-container-tools/overview.md)
+     * [Rootless Container, now supported]![image](feature/redhat-container-tools/rootless-containers/overview.md)
     
   1. Changes Network / Security 
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
