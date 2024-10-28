@@ -1,5 +1,13 @@
 # New Feature mtcp (MultiPath TCP)
 
+## What is it ? (under the hood)
+
+  * A set of additional extensions for tcp
+
+## Picture 
+
+![image](https://github.com/user-attachments/assets/67af95d1-4b28-40ae-8529-014785611978)
+
 ## How it works:
 
 ```
