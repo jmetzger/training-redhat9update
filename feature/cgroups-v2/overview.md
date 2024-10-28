@@ -12,3 +12,7 @@ mount | grep cgroup
 ## Behaviour of controllers 
 
   * If a controller was disabled in cgroup it cannot get enable in the next level 
+
+## Difference to v1 
+
+  * v2: no thread-level granularity for all controller, only process-level for all (like in v1)
