@@ -79,6 +79,77 @@ dnf install cockpit-leapp
 reboot
 ```
 
+### Step 11: Post-Upgrade check 
+
+```
+cat /etc/redhat-release
+uname -r
+subscription-manager list --installed
+subscription-manager release
+```
+
+  * There are some notes, about it here: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/upgrading_from_rhel_8_to_rhel_9/verifying-the-post-upgrade-state_upgrading-from-rhel-8-to-rhel-9#verifying-the-post-upgrade-state_upgrading-from-rhel-8-to-rhel-9
+
+## Step 12: Post-upgrade cleanup (Part 1)
+
+  * We need to do some cleanup
+
+```
+#  1. Delete all packages from the exclude list 
+dnf config-manager --save --setopt exclude=''
+```
+
+## Step 13: Post-upgrade cleanup (Part 2)
+
+```
+# Locate the packages from RHEL 8 
+rpm -qa | grep -e '\.el[78]' | grep -vE '^(gpg-pubkey|libmodulemd|katello-ca-consumer)' | sort
+```
+
+```
+# Delete all the packages from RHEL 8
+dnf remove $(rpm -qa | grep -e '\.el[78]' | grep -vE '^(gpg-pubkey|libmodulemd|katello-ca-consumer)' | sort)
+```
+
+```
+dnf remove leapp-deps-el9 leapp-repository-deps-el9
+```
+
+## Optional: Step 14: Delete related upgrade data 
+
+  * Eventually, you want to do this later, when everything is o.k.
+
+```
+rm -rf /var/log/leapp /root/tmp_leapp_py3 /var/lib/leapp
+```
+
+## Step 15: Update Kernel Command (set new default) 
+
+```
+BOOT_OPTIONS="$(tr -s "$IFS" '\n' </proc/cmdline | grep -ve '^BOOT_IMAGE=' -e '^initrd=' | tr '\n' ' ')"
+echo $BOOT_OPTIONS > /etc/kernel/cmdline
+```
+
+## Step 16: Delete existing initramfs for rescue mode and create new one 
+
+```
+rm /boot/vmlinuz-*rescue* /boot/initramfs-*rescue* 
+```
+```
+/usr/lib/kernel/install.d/51-dracut-rescue.install add "$(uname -r)" /boot "/boot/vmlinuz-$(uname -r)"
+```
+
+## Step 17: Verify new rescure system 
+
+```
+ls /boot/vmlinuz-*rescue* /boot/initramfs-*rescue*
+lsinitrd /boot/initramfs-*rescue*.img | grep -qm1 "$(uname -r)/kernel/" && echo "OK" || echo "FAIL"
+```
+
+```
+# check if entry in bootmenu refers to the right rescue kernel
+grubby --info $(ls /boot/vmlinuz-*rescue*)
+```
 
 
 ## Reference:
