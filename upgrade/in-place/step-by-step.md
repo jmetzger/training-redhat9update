@@ -62,7 +62,7 @@ dnf install cockpit-leapp
 
 ### Step 9: Upcoming error Processor: Unsupported Family 
 
-'''
+```
 # will adjust the configuration/checks file in leap, because we now this processor is working
 # we installed it under RHEL 9 already
 # Looks like a typical error in virtualbox
@@ -71,6 +71,13 @@ dnf install cockpit-leapp
 
   * https://access.redhat.com/solutions/7052222
 
+### Step 10: Reboot into initrams (for update)
+
+  * There was a special initramfs created to complete the upgrade
+
+```
+reboot
+```
 
 
 
