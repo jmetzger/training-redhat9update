@@ -47,7 +47,7 @@ cat /etc/firewalld/firewalld.conf | grep -i allowzonedrifting
 
 ```
 # it might take its time, so verbose and debug might be a good idea.
-# ON MY SYSTEM it TOOK 35 minutes  
+# ON MY SYSTEM it TOOK 35 minutes and then 2nd on 17 minutes  
 sudo leapp preupgrade --debug --verbose --target 9.4
 # Report is written to :
 # /var/log/leapp/leapp-report.json
