@@ -54,6 +54,12 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 # And also writes results to the screen 
 ```
 
+## Step 8: View repot in cockpit 
+
+```
+dnf install cockpit-leapp
+```
+
 
 ## Reference:
 
