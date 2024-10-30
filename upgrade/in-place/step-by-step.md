@@ -151,6 +151,23 @@ lsinitrd /boot/initramfs-*rescue*.img | grep -qm1 "$(uname -r)/kernel/" && echo 
 grubby --info $(ls /boot/vmlinuz-*rescue*)
 ```
 
+## Step 18: Check and activate security profile 
+
+```
+# Are there any denials ? 
+ausearch -m AVC,USER_AVC -ts boot
+# set tto enforcing
+vi /etc/selinux/config
+```
+
+```
+# from permissive 
+.... enforcing
+```
+
+```
+reboot
+```
 
 ## Reference:
 
