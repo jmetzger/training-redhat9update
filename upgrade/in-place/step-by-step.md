@@ -46,7 +46,8 @@ cat /etc/firewalld/firewalld.conf | grep -i allowzonedrifting
 ## Step 7: Do the preupdate checks with leapp 
 
 ```
-sudo leapp preupgrade --target 9.4
+# it might take its time, so verbose and debug might be a good idea. 
+sudo leapp preupgrade --debug --verbose --target 9.4
 # Report is written to :
 # /var/log/leapp/leapp-report.json
 # And also writes results to the screen 
