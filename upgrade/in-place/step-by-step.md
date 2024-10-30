@@ -1,6 +1,6 @@
 # In-Place Upgrade Step-By-Step (RHEL 8.10 -> RHEL 9.4) 
 
-## Step 1: What is not supported 
+## Step 1: What is not supported (but the leapp preupgrade will show you !)
 
   * Find out if there is something that is not supported, e.g.
     * Having ansible tower installed (migration process is different) 
@@ -46,7 +46,8 @@ cat /etc/firewalld/firewalld.conf | grep -i allowzonedrifting
 ## Step 7: Do the preupdate checks with leapp 
 
 ```
-# it might take its time, so verbose and debug might be a good idea. 
+# it might take its time, so verbose and debug might be a good idea.
+# ON MY SYSTEM it TOOK 35 minutes  
 sudo leapp preupgrade --debug --verbose --target 9.4
 # Report is written to :
 # /var/log/leapp/leapp-report.json
