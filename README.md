@@ -22,10 +22,10 @@
      * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
     
   1. Upgrade from RHEL 8 to RHEL 9
-    * [in place upgrade RHEL8->9](/upgrade/inplace/step-by-step.md)
+     * [in place upgrade RHEL8->9](/upgrade/inplace/step-by-step.md)
      
-    
   1. Containers / Automation
+     * [Using docker-compose in RHEL 9](automation-containers/docker-compose-on-rhel9.md)
      * [Capalities with Ansible/Podman](automation-containers/rhel-system-role/01-podman-ansible.md)
      * [Example alpine with dropped capabilities](automation-containers/rhel-system-role/02-ansible-podman-capabilities.md) 
 
