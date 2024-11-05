@@ -26,7 +26,7 @@
      
   1. Containers / Automation
      * [Using docker-compose in RHEL 9](automation-containers/docker-compose-on-rhel9.md)
-     * [Capalities with Ansible/Podman](automation-containers/rhel-system-role/01-podman-ansible.md)
+     * [Capabilities with Ansible/Podman](automation-containers/rhel-system-role/01-podman-ansible.md)
      * [Example alpine with dropped capabilities](automation-containers/rhel-system-role/02-ansible-podman-capabilities.md) 
 
 ## Backlog 
