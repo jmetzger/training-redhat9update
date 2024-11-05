@@ -18,3 +18,9 @@
 ### Workaround for connection to old system (RHEL5, RHEL 6)
 
   * https://rwmj.wordpress.com/2022/08/08/ssh-from-rhel-9-to-rhel-5-or-rhel-6/
+
+## Enable it on the complete server 
+
+```
+update-crypto-policies --set DEFAULT:SHA1
+```
