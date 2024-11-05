@@ -21,7 +21,10 @@
   1. Changes Network / Security 
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
      * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
-     * [Network Profiles keyfile format](network/profiles/keyfile-format-overview.md) 
+     * [Network Profiles keyfile format](network/profiles/keyfile-format-overview.md)
+    
+  1. Security
+      * [Deprecated signing with sha1](security/sha1-deprecated.md)
     
   1. Upgrade from RHEL 8 to RHEL 9
      * [in place upgrade RHEL8->9](/upgrade/inplace/step-by-step.md)
