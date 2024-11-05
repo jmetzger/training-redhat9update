@@ -16,7 +16,7 @@
   
   1. Changes Filesystem
      * [xfs - changes](feature/filesystems-xfs/bigtime-inobtcount.md)
-     * [scp now uses ftp - protocol](feature/scp-with-sftp.md)
+     * [scp now uses sftp - protocol](feature/scp-over-sftp.md)
     
   1. Changes Network / Security 
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
