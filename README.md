@@ -26,6 +26,7 @@
   1. Security
       * [Deprecated signing with sha1](security/sha1-deprecated.md)
       * [systemweite Krypto](security/system-wide-cryptographic-policy.md)
+      * [Changes selinux in RHEL9](security/selinux.md)
     
   1. Upgrade from RHEL 8 to RHEL 9
      * [in place upgrade RHEL8->9](/upgrade/inplace/step-by-step.md)
