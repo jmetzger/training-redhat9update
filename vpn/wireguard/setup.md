@@ -67,10 +67,10 @@ nano /etc/wireguard/wg0.conf
 [Interface]
 Address = 192.0.2.1/24, 2001:db8:1::1/32
 ListenPort = 51820
-PrivateKey = <private-key from Step >
+PrivateKey = <private-key from Step 1.2>
 
 [Peer]
-PublicKey = <public-key from Step >
+PublicKey = <public-key from Step 1.4>
 AllowedIPs = 192.0.2.2, 2001:db8:1::2
 ```
 
