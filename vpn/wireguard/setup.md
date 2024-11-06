@@ -76,7 +76,22 @@ AllowedIPs = 192.0.2.2, 2001:db8:1::2
 ```
 # Enable connection
 systemctl enable --now wg-quick@wg0
+# Status ?
+systemctl status wg-quick@wg0
+# New Interface
+ip a
+# Get info through wg - command
+wg show wg0 
 ```
+
+## Step 1.6.  Server:  Setup Firewall 
+
+```
+firewall-cmd --permanent --add-port=51820/udp --zone=public
+firewall-cmd --permanent --zone=public --add-masquerade
+firewall-cmd --reload
+```
+
 
 
 ## Reference:
