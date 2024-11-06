@@ -84,7 +84,7 @@ ip a
 wg show wg0 
 ```
 
-## Step 1.6.  Server:  Setup Firewall 
+## Step 1.6.  Setup Server: Setup Firewall 
 
 ```
 firewall-cmd --permanent --add-port=51820/udp --zone=public
@@ -92,7 +92,29 @@ firewall-cmd --permanent --zone=public --add-masquerade
 firewall-cmd --reload
 ```
 
+## Step 1.7. Setup Client: Setup interface wg0 
 
+```
+nano /etc/wireguard/wg0.conf 
+
+```
+[Interface]
+Address = 192.0.2.2/24, 2001:db8:1::2/32
+PrivateKey = <private-key-from-1.4>
+[Peer]
+PublicKey = <public-key-from-1.2>
+AllowedIPs = 192.0.2.1, 2001:db8:1::1
+
+# Endpoint = <public-ip-of-server-1.1-1.3>:51820
+# e.g. 
+Endpint = 192.168.56.110:51820
+PersistentKeepalive = 20
+```
+
+```
+# Enabling the interface 
+systemctl enable --now wg-quick@wg0
+```
 
 ## Reference:
 
