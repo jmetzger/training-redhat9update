@@ -73,6 +73,10 @@ PrivateKey = <private-key from Step 1.2>
 PublicKey = <public-key from Step 1.4>
 AllowedIPs = 192.0.2.2, 2001:db8:1::2
 ```
+```
+# Enable connection
+systemctl enable --now wg-quick@wg0
+```
 
 
 ## Reference:
