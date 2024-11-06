@@ -72,7 +72,7 @@ dnf distro-sync
 ### Step 6: switch back to version 15 
 
 ```
-dnf reset module postgresql
+dnf module reset postgresql
 dnf install @postgresql:15
 ```
 
