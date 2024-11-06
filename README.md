@@ -6,7 +6,7 @@
      * [Overview / Exercise appstream](application_streams/overview.md)
 
   1. Redhat Alternativen
-     * [Überblick](distros/overview-in-comparision-to-rhel8.md)
+     * [Überblick](distros/overview-in-comparison-to-rhel-9.md)
     
   1. Redhat 9 - New Features
      * [Redhat 9 - LivePatching Kernel - now in WebConsole](feature/live-patching-kernel-in-webconsole/overview.md)
