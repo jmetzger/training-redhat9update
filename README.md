@@ -23,7 +23,11 @@
      * [iptables vs. nftables - What has changed](network-security/iptables-to-nftables/overview.md)
      * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
      * [Network Profiles keyfile format](network/profiles/keyfile-format-overview.md)
-    
+
+  1. Future / Network
+     * [systemd-networkd / .network units](network/systemd-networkd/overview.md
+)
+   
   1. Security
       * [Deprecated signing with sha1](security/sha1-deprecated.md)
       * [systemweite Krypto](security/system-wide-cryptographic-policy.md)
