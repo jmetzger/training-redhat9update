@@ -54,7 +54,7 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 # And also writes results to the screen 
 ```
 
-## (Optiona) Step 8: View repot in cockpit 
+## (Optiona) Step 8: View report in cockpit 
 
 ```
 dnf install cockpit-leapp
@@ -76,6 +76,10 @@ dnf install cockpit-leapp
 ```
 sudo leapp preupgrade --debug --verbose --target 9.4
 ```
+
+### Step 9.6: Fix errors: Possible error: cannot open database file 
+
+  * https://access.redhat.com/solutions/6878881
 
 ### Step 10: Reboot into initrams (for update)
 
