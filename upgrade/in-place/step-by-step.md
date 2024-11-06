@@ -54,7 +54,7 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 # And also writes results to the screen 
 ```
 
-## Step 8: View repot in cockpit 
+## (Optiona) Step 8: View repot in cockpit 
 
 ```
 dnf install cockpit-leapp
@@ -70,6 +70,12 @@ dnf install cockpit-leapp
 
 
   * https://access.redhat.com/solutions/7052222
+
+### Step 9.5: Upgrading system 
+
+```
+sudo leapp preupgrade --debug --verbose --target 9.4
+```
 
 ### Step 10: Reboot into initrams (for update)
 
