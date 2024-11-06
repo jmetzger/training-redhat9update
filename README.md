@@ -2,8 +2,9 @@
 
 ## Agenda 
 
-  1. appstream
+  1. appstream /flatpak 
      * [Overview / Exercise appstream](application_streams/overview.md)
+     * [Overview Flatpak](flatpak/overview.md)
 
   1. Redhat Alternativen
      * [Überblick](distros/overview-in-comparison-to-rhel-9.md)
