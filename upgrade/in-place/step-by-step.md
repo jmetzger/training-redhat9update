@@ -81,7 +81,7 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 
   * https://access.redhat.com/solutions/6878881
 
-### Step 10: Reboot into initrams (for update)
+### Step 10: Reboot into initramfs (for update)
 
   * There was a special initramfs created to complete the upgrade
 
