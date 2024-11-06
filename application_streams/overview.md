@@ -53,7 +53,7 @@ dnf install @postgresql:15
 ### Step 5: Switch to a newer version 
 
 ```
-dnf reset module postgresql
+dnf module reset postgresql
 # this does not yet install the components
 dnf list --installed | grep postgresql
 ```
