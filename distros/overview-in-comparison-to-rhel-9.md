@@ -1,4 +1,4 @@
-# (Family-) Distros in comparison to REL 9 ung 
+# (Family-) Distros in comparison to RHEL 9 
 
 ## Zur Erklärung binärkompatibel 
 
