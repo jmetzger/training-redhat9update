@@ -100,7 +100,7 @@ grep "1 EMFILE" /tmp/leapp.strace
 ```
 ulimit -n 16384
 # rerun upgrade 
-leapp preupgrade --debug --verbose --target 9.4
+leapp upgrade --debug --verbose --target 9.4
 ```
 
 ### Step 10: Reboot into initramfs (for update)
