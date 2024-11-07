@@ -34,10 +34,14 @@
      * [systemd-networkd / .network units](network/systemd-networkd/overview.md
 )
   1. Security
-      * [Deprecated signing with sha1](security/sha1-deprecated.md)
-      * [systemweite Krypto](security/system-wide-cryptographic-policy.md)
-      * [Changes selinux in RHEL9](security/selinux.md)
+     * [Deprecated signing with sha1](security/sha1-deprecated.md)
+     * [systemweite Krypto](security/system-wide-cryptographic-policy.md)
     
+  1. Security (SELinux)
+      * [Changes selinux in RHEL9](security/selinux.md)
+      * [Troubleshooting Ports with selinux](security/selinux-troubleshooting-centos.md)
+      * [Troubleshotting Files selinux](/security/selinux-files.md)
+  
   1. Upgrade from RHEL 8 to RHEL 9
      * [in place upgrade RHEL8->9](upgrade/in-place/step-by-step.md)
      
@@ -134,7 +138,7 @@
      * [Aktualisierung des Systems](update-upgrade.md)
      * [Paketmanager yum](yum.md)
      * [Archive runterladen und entpacken](tar-download.md)
-     * [Apache installieren (firewall und selinux)](apache-installieren-selinux-firewalld.md) 
+     * [Apache installieren (firewall und )](apache-installieren--firewalld.md) 
   1. Firewall und ports
      * [firewalld](firewalld.md)
      * [Scannen und Überprüfen mit telnet/nmap](nmap-telnet.md)
