@@ -14,7 +14,13 @@ it MIGHT BE selinux <-- !!!
 
 ```
 dnf install -y httpd
-systemctl enable --now httpd 
+systemctl enable --now httpd
+
+# test ergibt
+# Das die Seite nicht aufgerufen
+# im Browser:
+http://192.168.56.110 
+
 ```
 
 
