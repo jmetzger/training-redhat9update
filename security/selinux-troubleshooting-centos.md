@@ -1,4 +1,4 @@
-# Troubleshooting SELinux Centos 
+# Troubleshooting SELinux Rocky/RHEL 
 
 ## General saying 
 
