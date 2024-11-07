@@ -14,6 +14,9 @@
      * [Redhat container tools - new streams](feature/redhat-container-tools/overview.md)
      * [Rootless Container, now supported](feature/redhat-container-tools/rootless-containers/overview.md)
      * [rpm - default compression zstd](feature/rpm-zstd/overview.md)
+
+  1. Redhat 9 - Container Tools
+     * [Redhat 9 - container tools ](feature/redhat-container-tools/overview.md)
   
   1. Changes Filesystem
      * [xfs - changes](feature/filesystems-xfs/bigtime-inobtcount.md)
