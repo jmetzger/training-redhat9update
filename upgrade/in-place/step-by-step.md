@@ -54,7 +54,7 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 # And also writes results to the screen 
 ```
 
-## (Optiona) Step 8: View report in cockpit 
+## (Optional) Step 8: View report in cockpit 
 
 ```
 dnf install cockpit-leapp
@@ -77,9 +77,31 @@ dnf install cockpit-leapp
 sudo leapp preupgrade --debug --verbose --target 9.4
 ```
 
-### Step 9.6: Fix errors: Possible error: cannot open database file 
+### Step 9.6: Analyze errors: Possible error: cannot open database file 
+
+  * Database file cannot be opened because of too many open files
+
+```
+# default seems to be 1024 - which could be too small
+# shows max for open file descriptors 
+ulimit -n
+
+# rerun command with strace, to see the problems
+strace -fttTvyyo /tmp/leapp.strace -s 128 leapp preupgrade --debug --verbose --target 9.4
+# You will see the errors here
+grep "1 EMFILE" /tmp/leapp.strace
+```
+
 
   * https://access.redhat.com/solutions/6878881
+
+### Step 9.7: Fix error 
+
+```
+ulimit -n 16384
+# rerun upgrade 
+leapp preupgrade --debug --verbose --target 9.4
+```
 
 ### Step 10: Reboot into initramfs (for update)
 
