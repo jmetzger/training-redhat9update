@@ -27,6 +27,9 @@
      * [iptables vs. nftables - migrate](network-security/iptables-to-nftables/migrate.md)
      * [Network Profiles keyfile format](network/profiles/keyfile-format-overview.md)
 
+  1. Network
+     * [eBPF & tools](/network/ebpf/overview.md)
+
   1. Future / Network
      * [systemd-networkd / .network units](network/systemd-networkd/overview.md
 )
