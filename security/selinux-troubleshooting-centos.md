@@ -10,6 +10,14 @@ it MIGHT BE selinux <-- !!!
 ```
 ## Walkthrough with debugging 
 
+### Step 0:
+
+```
+dnf install -y httpd
+systemctl enable --now httpd 
+```
+
+
 ### Step 1:
 
 ```
