@@ -19,7 +19,7 @@ systemctl enable --now httpd
 # test ergibt
 # Das die Seite nicht aufgerufen
 # im Browser:
-http://192.168.56.110 
+http://192.168.56.102
 
 ```
 
