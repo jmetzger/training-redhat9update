@@ -87,7 +87,7 @@ sudo leapp preupgrade --debug --verbose --target 9.4
 ulimit -n
 
 # rerun command with strace, to see the problems
-strace -fttTvyyo /tmp/leapp.strace -s 128 leapp preupgrade --debug --verbose --target 9.4
+strace -fttTvyyo /tmp/leapp.strace -s 128 leapp upgrade --debug --verbose --target 9.4
 # You will see the errors here
 grep "1 EMFILE" /tmp/leapp.strace
 ```
