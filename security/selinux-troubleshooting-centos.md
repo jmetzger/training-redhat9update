@@ -21,6 +21,8 @@ systemctl enable --now httpd
 # im Browser:
 http://192.168.56.102
 
+firewall-cmd --add-service=http
+firewall-cmd --runtime-to-permanent 
 ```
 
 
