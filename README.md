@@ -66,6 +66,9 @@
      * [Auditing mit auditd](auditd/overview.md)
      * [Systemd coredump](systemd/coredump.md)
      * [crashkernel deaktivieren](https://access.redhat.com/solutions/7070808)
+    
+  1. Repo erstellen
+     * [repo erstellen](https://www.percona.com/blog/how-to-create-your-own-repositories-for-packages/)
 
 ## Backlog 
 
