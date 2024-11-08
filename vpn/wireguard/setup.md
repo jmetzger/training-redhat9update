@@ -131,7 +131,7 @@ ping -c 4 192.0.2.1
 
 ```
 # das geht nicht 
-ping -c 4 192.168.0.2
+ping -c 4 192.0.2.2
 ```
 
 
