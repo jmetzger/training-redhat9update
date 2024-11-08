@@ -37,7 +37,7 @@
   1. Security
      * [Deprecated signing with sha1](security/sha1-deprecated.md)
      * [systemweite Krypto](security/system-wide-cryptographic-policy.md)
-     * [facpolicyd](security/fapolicyd/overview.md)
+     * [fapolicyd](security/fapolicyd/overview.md)
     
   1. Security (SELinux)
       * [Changes selinux in RHEL9](security/selinux.md)
