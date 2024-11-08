@@ -130,6 +130,7 @@ ping -c 4 192.0.2.1
 ## Step 1.9  Test vom server aus zum client 
 
 ```
+# das geht nicht 
 ping -c 4 192.168.0.2
 ```
 
