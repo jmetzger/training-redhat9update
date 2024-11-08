@@ -1,5 +1,10 @@
 # fapolicyd 
 
+## Einschränkung: 
+
+  * Standardmäßig darf der Root-Benutzer alle Kommandos ausführen
+  * d.h. als root funktioniert nicht Übung nicht 
+
 ## Exercise 
 
 ```
