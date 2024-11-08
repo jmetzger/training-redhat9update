@@ -62,8 +62,9 @@
   1. Zertifikat - Store (CA)
      * [Zertifikat-Store](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/securing_networks/using-shared-system-certificates_securing-networks#adding-new-certificates_using-shared-system-certificates)
 
-  1. auditd
+  1. auditd / systemd-coredump 
      * [Auditing mit auditd](auditd/overview.md)
+     * [Systemd coredump](systemd/coredump.md)
 
 ## Backlog 
 
