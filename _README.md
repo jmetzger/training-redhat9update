@@ -1,7 +1,80 @@
-# Redhat Linux Grundlagen
+# Redhat Linux 9 (Upgrade from Redhat 8)
 
 
 ## Agenda
+  1. appstream /flatpak 
+     * [Overview / Exercise appstream](#overview--exercise-appstream)
+     * [Overview Flatpak](#overview-flatpak)
+
+  1. Redhat Alternativen
+     * [Überblick](#überblick)
+    
+  1. Redhat 9 - New Features
+     * [Redhat 9 - LivePatching Kernel - now in WebConsole](#redhat-9---livepatching-kernel---now-in-webconsole)
+     * [Redhat container tools - new streams](#redhat-container-tools---new-streams)
+     * [Rootless Container, now supported](#rootless-container-now-supported)
+     * [rpm - default compression zstd](#rpm---default-compression-zstd)
+
+  1. Redhat 9 - Container Tools
+     * [Redhat 9 - container tools ](#redhat-9---container-tools-)
+  
+  1. Changes Filesystem
+     * [xfs - changes](#xfs---changes)
+     * [ext4 - changes](#ext4---changes)
+     * [scp now uses sftp - protocol](#scp-now-uses-sftp---protocol)
+    
+  1. Changes Network / Security 
+     * [iptables vs. nftables - What has changed](#iptables-vs-nftables---what-has-changed)
+     * [iptables vs. nftables - migrate](#iptables-vs-nftables---migrate)
+     * [Network Profiles keyfile format](#network-profiles-keyfile-format)
+
+  1. Network
+     * [eBPF & tools](#ebpf--tools)
+     * [MultiPath TCP](#multipath-tcp)
+
+  1. Future / Network
+     * [systemd-networkd / .network units](#systemd-networkd--network-units)
+)
+  1. Security
+     * [Deprecated signing with sha1](#deprecated-signing-with-sha1)
+     * [systemweite Krypto](#systemweite-krypto)
+     * [fapolicyd](#fapolicyd)
+    
+  1. Security (SELinux)
+      * [Changes selinux in RHEL9](security/selinux.md)
+      * [Troubleshooting Ports with selinux](security/selinux-troubleshooting-centos.md)
+      * [Troubleshotting Files selinux](/security/selinux-files.md)
+  
+  1. Upgrade from RHEL 8 to RHEL 9
+     * [in place upgrade RHEL8->9](#in-place-upgrade-rhel8->9)
+     
+  1. Containers / Automation
+     * [Using docker-compose in RHEL 9](#using-docker-compose-in-rhel-9)
+     * [Capabilities with Ansible/Podman](#capabilities-with-ansiblepodman)
+     * [Example alpine with dropped capabilities](#example-alpine-with-dropped-capabilities)
+    
+  1. Tipps & Tricks 
+     *  [Ins System reinkommen ohne Passwort und Änderungen vornehmen](tipps-tricks/init-bash.md)
+    
+  1. Anbindung an AD-Server 
+     * [Anbindung an AD-Server](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/integrating_rhel_systems_directly_with_windows_active_directory/connecting-rhel-systems-directly-to-ad-using-sssd_integrating-rhel-systems-directly-with-active-directory#using-posix-attributes-defined-in-active-directory_connecting-directly-to-ad)
+
+  1. Zertifikat - Store (CA)
+     * [Zertifikat-Store](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/securing_networks/using-shared-system-certificates_securing-networks#adding-new-certificates_using-shared-system-certificates)
+
+  1. auditd / systemd-coredump / crashkernel 
+     * [Auditing mit auditd](#auditing-mit-auditd)
+     * [Systemd coredump](#systemd-coredump)
+     * [crashkernel deaktivieren](https://access.redhat.com/solutions/7070808)
+    
+  1. Repo erstellen
+     * [repo erstellen](https://www.percona.com/blog/how-to-create-your-own-repositories-for-packages/)
+    
+  1. YoPad
+     * [YoPad](#yopad)
+
+## Backlog 
+
   1. Distributionen 
      * [Überblick](#überblick)
   1. Verzeichnisse und Dateitypen 
@@ -17,7 +90,7 @@
   1. Erweiterte Befehle (Nice to have) 
      * [Alias Befehle anzeigen](#alias-befehle-anzeigen)
      * [Welche Bibliotheken verwendet ein ausführbares Programm](#welche-bibliotheken-verwendet-ein-ausführbares-programm)
-     * [Ist ein Befehl extern, alias oder intern](#ist-ein-befehl-extern,-alias-oder-intern)
+     * [Ist ein Befehl extern, alias oder intern](#ist-ein-befehl-extern-alias-oder-intern)
 
   1. Dateien und Verzeichnisse
      * [Mit cd im System navigieren](#mit-cd-im-system-navigieren)
@@ -57,7 +130,7 @@
   1. Dienste/Runlevel(Targets verwalten) 
      * [Die wichtigsten systemctl/service](#die-wichtigsten-systemctlservice)
      * [Systemctl - timers](#systemctl---timers)
-     * [Gegenüberstellung service etc/init.d/ systemctl](#gegenüberstellung-service-etcinit.d-systemctl)
+     * [Gegenüberstellung service etc/init.d/ systemctl](#gegenüberstellung-service-etcinitd-systemctl)
      * [Default Editor systemctl setzen](#default-editor-systemctl-setzen)
 
   1. Systemd 
@@ -71,7 +144,7 @@
      * [ssh absichern](#ssh-absichern)
 
   1. Partitionierung und Filesystem
-     * [parted and mkfs.ext4](#parted-and-mkfs.ext4)
+     * [parted and mkfs.ext4](#parted-and-mkfsext4)
   1. Boot-Prozess und Kernel 
      * [Grub konfigurieren](#grub-konfigurieren)
      * [Kernel-Version anzeigen](#kernel-version-anzeigen)
@@ -85,7 +158,7 @@
      * [Aktualisierung des Systems](#aktualisierung-des-systems)
      * [Paketmanager yum](#paketmanager-yum)
      * [Archive runterladen und entpacken](#archive-runterladen-und-entpacken)
-     * [Apache installieren (firewall und selinux)](#apache-installieren-firewall-und-selinux)
+     * [Apache installieren (firewall und )](#apache-installieren-firewall-und-)
   1. Firewall und ports
      * [firewalld](#firewalld)
      * [Scannen und Überprüfen mit telnet/nmap](#scannen-und-überprüfen-mit-telnetnmap)
@@ -121,6 +194,1487 @@
 
 
 <div class="page-break"></div>
+
+## appstream /flatpak 
+
+### Overview / Exercise appstream
+
+
+  * Applikation streams where introduced in Redhat 8
+
+### Advantages 
+
+  * You can switch to a different version 
+  * More new version are introduced, and you can decide which version to use
+
+### Disadvantages 
+
+  * Only one version of the software can be installed at a time
+
+### Overview over different software packages and versions 
+
+
+### Modules, Stream and profiles 
+
+  * module: Name of the software (e.g. postgresql)
+  * stream: The version (e.g. 15)
+  * profile: Different use cases, e.g. client / server
+
+### Walkthrough Postgresql 
+
+#### Step 1: What modules are available ? 
+
+```
+dnf module list
+```
+
+#### Step 2: List all versions for postgresql 
+
+```
+dnf module info postgresql
+```
+
+#### Step 3: Try to install a version  
+
+```
+## This does not work 
+dnf install @postgresql
+```
+
+#### Step 4: We will decided for a version 
+
+ * Format for a specific version: dnf install @module:version/profile
+
+```
+## for the profile we take the default -> server 
+dnf install @postgresql:15
+```
+
+#### Step 5: Switch to a newer version 
+
+```
+dnf module reset postgresql
+## this does not yet install the components
+dnf list --installed | grep postgresql
+```
+
+```
+## now install the newer version
+dnf install @postgresql:16
+dnf list --installed | grep postgresql 
+```
+
+```
+## just to be sure, all modules do have the proper version
+dnf distro-sync 
+```
+
+#### Step 6: switch back to version 15 
+
+```
+dnf module reset postgresql
+dnf install @postgresql:15
+```
+
+```
+## now check for the installed version
+dnf list --installed | grep postgresql
+```
+
+### Reference 
+
+  * https://www.redhat.com/en/blog/introduction-appstreams-and-modules-red-hat-enterprise-linux
+
+### Overview Flatpak
+
+
+```
+Flatpak is a universal package format for Linux desktop applications. It is available on most Linux distributions. It allows you to install and run applications in a sandboxed environment, separate from the rest of the system. This sandboxing gives you more control over the dependencies of your applications.
+```
+
+### Reference:
+
+  * https://flathub.org/apps/search?q=vlc
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/administering_the_system_using_the_gnome_desktop_environment/assembly_installing-applications-using-flatpak_administering-the-system-using-the-gnome-desktop-environment#installing-flatpak-applications_assembly_installing-applications-using-flatpak 
+
+## Redhat Alternativen
+
+### Überblick
+
+
+### Zur Erklärung binärkompatibel 
+
+```
+Zwei Betriebssysteme sind binärkompatibel, wenn jedes Programm, das für das eine Betriebssystem kompiliert wurde, ohne erneutes Kompilieren sofort auf dem anderen Betriebssystem lauffähig ist.
+```
+
+### Centos 9 Stream
+
+  * CentOS Stream dient als Upstream-Entwicklungsplattform für kommende Produktreleases von Red Hat® Enterprise Linux.
+public development branch for RHEL. Specifically, CentOS Stream 8 is the upstream for the next minor release of RHEL 8, CentOS Stream 9 for the next minor release of RHEL 9, and so on.
+
+### Unterschied zu Centos x Linux 
+
+  * Centos x Linux z.B. Centos 7 Linux, war eine Version, die aus RHEL gebaut wurde.
+  * Diese Veröffentlichungsweg ist eingestellt (komplett seit 2024) 
+
+### OracleLinux 
+
+
+```
+Oracle Linux Support. Oracle Linux, das 100 % anwendungs-binärkompatibel mit Red Hat Enterprise Linux ist, 
+```
+
+  * Quote: https://www.oracle.com/de/linux/
+
+### Rocky 
+
+#### Allgemein
+
+
+  * kostenfrei, von einer non-profit-organisation verwaltet
+  * Rocky ist am nächsten dran bzgl. der Binärkompabilität.
+
+```
+Rocky Linux releases closely follow RHEL releases, usually by days or weeks.
+These brief delays are due to the rebuild process and community-driven development.
+For example, RHEL 9.3 was released on November 7, 2023, and Rocky Linux 9.3 was released on November 20, 2023.
+```
+
+#### Rocky -> Kompabilität 
+
+```
+Rocky Linux's goal is to be completely compatible with RHEL,
+like CentOS was. The packages are all compiled from the same sources and patches.
+```
+
+#### Rocky and SourceCode 
+
+```
+In terms of functionality and features, Rocky Linux and RHEL are virtually identical.
+Rocky Linux formerly used the RHEL source code to build their own packages
+(as did AlmaLinux, Oracle Linux, and many others)
+but Red Hat's move to restrict RHEL source code access changed the method by which they maintain compatibility.
+```
+
+```
+Rocky Linux still maintains 1:1 compatibility, but in a different manner
+than AlmaLinux and Oracle Linux.
+In a statement from July 29, 2023, Rocky Linux said it obtains 
+the “source code from multiple sources, including CentOS Stream, 
+pristine upstream packages, and RHEL SRPMS.” 
+```
+
+### AlmaLinux 
+
+#### Overview
+
+```
+Eine Open-Source-Linux-Distribution, die sich im Besitz der Community befindet
+und von der Community verwaltet wird, sich auf langfristige Stabilität konzentriert
+und eine robuste Plattform für die Produktion bietet. AlmaLinux OS ist binärkompatibel mit RHEL.®
+...
+Quote from Webpage
+```
+
+
+#### Reference:
+
+  * https://almalinux.org/de/
+
+
+## Redhat 9 - New Features
+
+### Redhat 9 - LivePatching Kernel - now in WebConsole
+
+
+```
+Kernel live patch management is also available via the web console to significantly
+reduce the complexity of performing critical maintenance. 
+```
+
+### Redhat container tools - new streams
+
+
+### Metapackage for a couple of container - tools 
+
+  * This holds a couple of packages: Podman, Buildah, Skopeo, CRIU, Udica
+
+### Install 
+
+```
+dnf install -y container-tools
+```
+
+![image](https://github.com/user-attachments/assets/8a2d0e90-e987-4224-975d-1c77ee1cd8d3)
+
+### How it works in Redhat 9
+
+#### 2 ways to consume container tools 
+
+##### Way 1: move quickly -> application stream 
+
+  * Applicaton Stream
+  * Released every 12 weeks 
+  * For developers and users, who want to access the latest podman, buildah and skopeo 
+
+##### Way 2: stable stream 
+
+  * Additional Subscription: Extended Update Support (EUS) 
+  * Maintaining a consistent version of podman.
+  * Support security backports for 2 years.
+
+#### Notes on podman-docker 
+
+```
+The podman-docker package replaces the Docker command-line interface and docker-api with the matching Podman commands. Every time you run a Docker command, the system will actually run a Podman command
+```
+
+### container - tools 
+
+#### buildah 
+
+  * Tool zum images bauen
+
+#### Skopeo 
+
+  * Hilfskommandos zum interagieren mit einer Registry
+  * https://github.com/containers/skopeo
+
+#### UDICA 
+
+  * SELinux policies
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/using_selinux/creating-selinux-policies-for-containers_using-selinux#creating-and-using-an-selinux-policy-for-a-custom-container_creating-selinux-policies-for-containers
+
+#### CRIU 
+
+  * It can freeze a running container (or an individual application) and checkpoint its state to disk
+  * https://criu.org/Main_Page
+
+#### .container - unit 
+
+  * Units erstellen, die automatisch einen Container für ein bestimmtes Images startet 
+
+### Reference:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/considerations_in_adopting_rhel_9/index#ref_changes-to-containers_assembly_containers
+
+### Rootless Container, now supported
+
+
+### Techn Preview in RHEL 8, now stable/supported in RHEL 9 
+
+### Attention: 
+
+  * The wording: rootless containers in this case means:
+  * You can run containers as unprivileged user (e.g. user kurs)
+    * the containers themselves can also run privileged (though)
+   
+### Walkthrough 
+
+```
+## as unprivileged user e.g. kurs
+## when adding a new user with useradd
+## this uses is automatically setup to use podman unprivileged
+## run image alpine from hub.docker.com and show the id 
+## after that please delete
+## container still runs under root 
+podman run --rm -it alpine id
+
+```
+
+```
+![image](https://github.com/user-attachments/assets/81318db9-9b9a-4a3c-aa3e-4ca38298b357)
+```
+
+### Reference
+
+  * https://docs.redhat.com/de/documentation/red_hat_enterprise_linux/9/html-single/building_running_and_managing_containers/index#proc_setting-up-rootless-containers_assembly_starting-with-containers
+
+### rpm - default compression zstd
+
+
+### What is payload 
+
+  * Payload is the cpio-archive that holds the binaries as an archive (like tar)
+  * This file is compressed.
+    * It used to be xz, now it is zstd (Z Standard)
+
+### Why is zstd used ?
+
+  * Takes less cpu
+  * Is faster
+
+### Source from redhat 
+
+```
+RPM now supports the Zstandard (zstd) compression algorithm
+
+In RHEL 9, the default RPM compression algorithm has switched
+to Zstandard (zstd). As a result, packages now install faster,
+which can be especially noticeable during large transactions.
+```
+
+### How to test ?
+
+```
+## as root 
+cd /usr/src
+dnf download nano
+## Which compression is used
+rpm -q --queryformat '%{PAYLOADCOMPRESSOR}\n' -p nano*.rpm
+```
+
+### We are using special variables, what are they ? 
+
+  * https://rpm-software-management.github.io/rpm/manual/tags.html#packages-with-files
+
+## Redhat 9 - Container Tools
+
+### Redhat 9 - container tools 
+
+
+### Metapackage for a couple of container - tools 
+
+  * This holds a couple of packages: Podman, Buildah, Skopeo, CRIU, Udica
+
+### Install 
+
+```
+dnf install -y container-tools
+```
+
+![image](https://github.com/user-attachments/assets/8a2d0e90-e987-4224-975d-1c77ee1cd8d3)
+
+### How it works in Redhat 9
+
+#### 2 ways to consume container tools 
+
+##### Way 1: move quickly -> application stream 
+
+  * Applicaton Stream
+  * Released every 12 weeks 
+  * For developers and users, who want to access the latest podman, buildah and skopeo 
+
+##### Way 2: stable stream 
+
+  * Additional Subscription: Extended Update Support (EUS) 
+  * Maintaining a consistent version of podman.
+  * Support security backports for 2 years.
+
+#### Notes on podman-docker 
+
+```
+The podman-docker package replaces the Docker command-line interface and docker-api with the matching Podman commands. Every time you run a Docker command, the system will actually run a Podman command
+```
+
+### container - tools 
+
+#### buildah 
+
+  * Tool zum images bauen
+
+#### Skopeo 
+
+  * Hilfskommandos zum interagieren mit einer Registry
+  * https://github.com/containers/skopeo
+
+#### UDICA 
+
+  * SELinux policies
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/using_selinux/creating-selinux-policies-for-containers_using-selinux#creating-and-using-an-selinux-policy-for-a-custom-container_creating-selinux-policies-for-containers
+
+#### CRIU 
+
+  * It can freeze a running container (or an individual application) and checkpoint its state to disk
+  * https://criu.org/Main_Page
+
+#### .container - unit 
+
+  * Units erstellen, die automatisch einen Container für ein bestimmtes Images startet 
+
+### Reference:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/considerations_in_adopting_rhel_9/index#ref_changes-to-containers_assembly_containers
+
+## Changes Filesystem
+
+### xfs - changes
+
+
+### bigtime && inobtcount 
+
+  * bigtime. Date support beyond 2038
+  * inobtcount: Inode btree counters (inobtcount), to reduce mount time on large filesystems.
+
+### It looks like this in RHEL 9
+
+```
+xfs_info /dev/mapper/rhel*root | grep -e bigtime -e inobtcount
+```
+
+![image](https://github.com/user-attachments/assets/4c79ccbb-c54a-4432-953d-50d1a6d9edc6)
+
+### Not enabled in Redhat 8 
+
+```
+xfs_info /dev/mapper/rhel*root | grep -e bigtime -e inobtcount
+```
+
+![image](https://github.com/user-attachments/assets/80c87777-3520-4efa-afef-64de7e9d20be)
+
+### Downward compability 
+
+```
+To create a new filesystem that will be compatible with the RHEL 8 kernel, disable these new features by adding -m bigtime=0,inobtcount=0 to the mkfs.xfs command line. A filesystem created in this way will not support timestamps beyond the year 2038.
+```
+
+### Migration 
+
+  * The LEAPP - in place- migration - tool, does NOT do this for you  (changing it with xfs_admin)
+  * You have do it manually, it does not work if filesystem is mounted
+
+```
+xfs_admin -O bigtime=1,inobtcount=1 /dev/mapper/rhel-root
+```
+
+### Reference:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/considerations_in_adopting_rhel_9/assembly_file-systems-and-storage_considerations-in-adopting-rhel-9#ref_file-systems_assembly_file-systems-and-storage
+
+### ext4 - changes
+
+
+### Too small inode size (128) cause 2038 - bug 
+
+```
+## Diagnostics:
+tune2fs -l /dev/<device> | grep "Inode size"
+```
+
+### Remarks 
+
+```
+ext4 filesystem now supports timestamps beyond the year 2038
+
+The ext4 filesystem is now supporting timestamps beyond the year 2038.
+This feature is fully automatic and does not require any user action to
+leverage it. The only requirement is that the inode size is larger than 128 bytes,
+which it is by default.
+```
+
+### Reference:
+
+  * https://access.redhat.com/solutions/6983510
+
+### scp now uses sftp - protocol
+
+
+  * scp command can still be used to connect
+  * but in the background the sftp protocol is used
+
+### Reference:
+
+  https://www.redhat.com/en/blog/openssh-scp-deprecation-rhel-9-what-you-need-know
+  
+
+## Changes Network / Security 
+
+### iptables vs. nftables - What has changed
+
+
+### Overview 
+
+  * iptables now uses the nftables api under the hood
+  * iptables - rules will still work, but will be "translated" to nftables backend under the hood
+    * but they will not show up under nftables
+
+```
+iptables -v
+```
+
+![image](https://github.com/user-attachments/assets/123d684e-9419-46a0-8a2c-a9d599413bc6)
+
+### Recommended approach - migrate to nftables 
+
+  * see next document 
+
+### iptables vs. nftables - migrate
+
+
+### Example: Let us create a rule for iptables and http / ssh 
+
+
+
+### Reference:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_firewalls_and_packet_filters/getting-started-with-nftables_firewall-packet-filters?extIdCarryOver=true&sc_cid=701f2000000tyN6AAI#proc_converting-iptables-and-ip6tables-rule-sets-to-nftables_assembly_migrating-from-iptables-to-nftables
+
+### Network Profiles keyfile format
+
+
+### Old version 
+
+  * Network Profiles used to be stored here
+
+```
+/etc/sysconfig/network-scripts
+```
+
+  * This folder and format is deprecated
+  * New files will not be created there anymore 
+
+### New version 
+
+  * no stored here:
+
+```
+/etc/NetworkManager/system-connections
+```
+
+  * ini-format (easily parseable)
+  * Example:
+
+```
+[connection]
+id=enp0s8
+uuid=d58039f9-d191-4b2a-beda-d3a84b11cd7e
+type=ethernet
+interface-name=enp0s8
+
+[ethernet]
+
+[ipv4]
+method=auto
+
+[ipv6]
+addr-gen-mode=eui64
+method=auto
+
+[proxy]
+```
+
+### Migration 
+
+  * After in-place upgrade still the old files will be present
+  * migration (will be migrated and removed from /etc/sysconfig/network-scripts)
+
+```
+nmcli conn migrate
+```
+
+
+## Network
+
+### eBPF & tools
+
+
+### Referenzen:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/network-tracing-using-the-bpf-compiler-collection_configuring-and-managing-networking#displaying-tcp-connections-added-to-the-kernels-accept-queue_network-tracing-using-the-bpf-compiler-collection
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/assembly_understanding-the-ebpf-features-in-rhel-9_configuring-and-managing-networking#ref_overview-of-networking-ebpf-features-in-rhel-9_assembly_understanding-the-ebpf-features-in-rhel-9
+
+### MultiPath TCP
+
+
+```
+echo "net.mptcp.enabled=1" > /etc/sysctl.d/90-enable-MPTCP.conf
+sysctl -p /etc/sysctl.d/90-enable-MPTCP.conf
+```
+
+### TestPage 
+
+  * curl http://www.multipath-tcp.org
+
+### Exercise 
+
+```
+echo "net.mptcp.enabled=1" > /etc/sysctl.d/90-enable-MPTCP.conf
+sysctl -p /etc/sysctl.d/90-enable-MPTCP.conf
+sysctl net.mptcp.enabled
+dnf install -y  mptcpd iperf3
+## Listener 
+mptcpize run iperf3 -s &
+while true ; do ss -nti '( dport :5201 )'; done
+
+### Dann im Client -> 
+## client 
+mptcpize run iperf3 -c 127.0.0.1 -t 3
+nstat -s MPTcp*
+```
+
+
+### Joining 
+
+![image](https://github.com/user-attachments/assets/dc7adea8-d75a-4b1d-941f-6dccfa60e9fd)
+
+### Reference 
+
+  * https://www.mptcp.dev/
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/getting-started-with-multipath-tcp_configuring-and-managing-networking
+    
+
+## Future / Network
+
+### systemd-networkd / .network units
+
+## Security
+
+### Deprecated signing with sha1
+
+
+### Signed Packages 
+
+  * No problems with packages from redhat
+  * They are signed with sha256 
+  * https://www.redhat.com/en/blog/rhel-security-sha-1-package-signatures-distrusted-rhel-9
+
+### DNSSEC 
+
+  * https://access.redhat.com/solutions/6955455
+
+### ssh 
+
+  * Problem connections from new to old
+  * If you're running a mixture of new and old RHEL versions, you may have problems SSHing from new to old
+
+#### Workaround for connection to old system (RHEL5, RHEL 6)
+
+  * https://rwmj.wordpress.com/2022/08/08/ssh-from-rhel-9-to-rhel-5-or-rhel-6/
+
+### Enable it on the complete server 
+
+```
+update-crypto-policies --set DEFAULT:SHA1
+```
+
+### systemweite Krypto
+
+
+```
+## Welches Profil wird aktuell verwendet
+update-crypto-policies --show
+```
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening#system-wide-crypto-policies_using-the-system-wide-cryptographic-policies
+
+### fapolicyd
+
+
+### Einschränkung: 
+
+  * Standardmäßig darf der Root-Benutzer alle Kommandos ausführen
+  * d.h. als root funktioniert nicht Übung nicht 
+
+### Exercise 
+
+```
+## as root 
+dnf install -y fapolicyd
+systemctl enable --now fapolicyd
+cp -a /bin/ls /tmp/ls
+```
+
+```
+## as unprivileged user
+/tmp/ls
+## <- now allowed
+```
+
+```
+## as privileged user
+fapolicyd-cli --file add /tmp/ls --trust-file myapp
+fapolicyd-cli --update
+```
+
+```
+## as unprivileged user
+/tmp/ls
+```
+
+### Reference: 
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/assembly_blocking-and-allowing-applications-using-fapolicyd_security-hardening#marking-files-as-trusted-using-an-additional-source-of-trust_assembly_blocking-and-allowing-applications-using-fapolicyd
+
+## Security (SELinux)
+
+## Upgrade from RHEL 8 to RHEL 9
+
+### in place upgrade RHEL8->9
+
+
+### Step 1: What is not supported (but the leapp preupgrade will show you !)
+
+  * Find out if there is something that is not supported, e.g.
+    * Having ansible tower installed (migration process is different) 
+    * wanting to shift from bios tu uefi boot
+   
+### Step 2: Vorbereitungsschritte
+
+  1. Es sollte kein Ansible/Puppet Änderung am Systme machen
+  1. Von auch Rhel 7 auf RHEL 8 auch mit LEAPP durchgeführen ?
+     * Dann löschen: sudo rm -rf /root/tmp_leapp_py3
+  1. Ist Abonnenment da ?
+     * sudo subscription-manager list --installed  -> Status: subskribiert
+
+### Step 3: Make backup of system 
+
+  * In our case, we will make a "Sicherung" in virtualbox
+  * In addition we will create a clone beforehand 
+
+### Step 4: Sicherstellen, dass beide Repos aktiviert sind, Stand sperren und update durchführen  
+
+```
+sudo subscription-manager repos --enable rhel-8-for-x86_64-baseos-rpms --enable rhel-8-for-x86_64-appstream-rpms
+sudo subscription-manager release --set 8.10
+sudo dnf update
+```
+
+### Step 5: leapp-upgrade installiere und alle Anwendungssperren entfernen 
+
+```
+sudo dnf install -y leapp-upgrade
+## if you get command not found, this dnf plugin is not installed
+## that's o.k. , then you also will have no versionlocks 
+dnf versionlock clear  
+```
+
+### Step 6: Disable AllowDriftingZone in Firewall 
+
+```
+cat /etc/firewalld/firewalld.conf | grep -i allowzonedrifting 
+## if you have yes here, disable -> set to no  (with vi or nano) 
+```
+
+### Step 7: Do the preupdate checks with leapp 
+
+```
+## it might take its time, so verbose and debug might be a good idea.
+## ON MY SYSTEM it TOOK 35 minutes and then 2nd on 17 minutes  
+sudo leapp preupgrade --debug --verbose --target 9.4
+## Report is written to :
+## /var/log/leapp/leapp-report.json
+## And also writes results to the screen 
+```
+
+### (Optional) Step 8: View report in cockpit 
+
+```
+dnf install cockpit-leapp
+```
+
+#### Step 9: Upcoming error Processor: Unsupported Family 
+
+```
+## will adjust the configuration/checks file in leap, because we now this processor is working
+## we installed it under RHEL 9 already
+## Looks like a typical error in virtualbox
+```
+
+
+  * https://access.redhat.com/solutions/7052222
+
+#### Step 9.5: Upgrading system 
+
+```
+sudo leapp preupgrade --debug --verbose --target 9.4
+```
+
+#### Step 9.6: Analyze errors: Possible error: cannot open database file 
+
+  * Database file cannot be opened because of too many open files
+
+```
+## default seems to be 1024 - which could be too small
+## shows max for open file descriptors 
+ulimit -n
+
+## rerun command with strace, to see the problems
+strace -fttTvyyo /tmp/leapp.strace -s 128 leapp upgrade --debug --verbose --target 9.4
+## You will see the errors here
+grep "1 EMFILE" /tmp/leapp.strace
+```
+
+
+  * https://access.redhat.com/solutions/6878881
+
+#### Step 9.7: Fix error 
+
+```
+ulimit -n 16384
+## rerun upgrade 
+leapp upgrade --debug --verbose --target 9.4
+```
+
+#### Step 10: Reboot into initramfs (for update)
+
+  * There was a special initramfs created to complete the upgrade
+
+```
+reboot
+```
+
+#### Step 11: Post-Upgrade check 
+
+```
+cat /etc/redhat-release
+uname -r
+subscription-manager list --installed
+subscription-manager release
+```
+
+  * There are some notes, about it here: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/upgrading_from_rhel_8_to_rhel_9/verifying-the-post-upgrade-state_upgrading-from-rhel-8-to-rhel-9#verifying-the-post-upgrade-state_upgrading-from-rhel-8-to-rhel-9
+
+### Step 12: Post-upgrade cleanup (Part 1)
+
+  * We need to do some cleanup
+
+```
+##  1. Delete all packages from the exclude list 
+dnf config-manager --save --setopt exclude=''
+```
+
+### Step 13: Post-upgrade cleanup (Part 2)
+
+```
+## Locate the packages from RHEL 8 
+rpm -qa | grep -e '\.el[78]' | grep -vE '^(gpg-pubkey|libmodulemd|katello-ca-consumer)' | sort
+```
+
+```
+## Delete all the packages from RHEL 8
+dnf remove $(rpm -qa | grep -e '\.el[78]' | grep -vE '^(gpg-pubkey|libmodulemd|katello-ca-consumer)' | sort)
+```
+
+```
+dnf remove leapp-deps-el9 leapp-repository-deps-el9
+```
+
+### Optional: Step 14: Delete related upgrade data 
+
+  * Eventually, you want to do this later, when everything is o.k.
+
+```
+rm -rf /var/log/leapp /root/tmp_leapp_py3 /var/lib/leapp
+```
+
+### Step 15: Update Kernel Command (set new default) 
+
+```
+BOOT_OPTIONS="$(tr -s "$IFS" '\n' </proc/cmdline | grep -ve '^BOOT_IMAGE=' -e '^initrd=' | tr '\n' ' ')"
+echo $BOOT_OPTIONS > /etc/kernel/cmdline
+```
+
+### Step 16: Delete existing initramfs for rescue mode and create new one 
+
+```
+rm /boot/vmlinuz-*rescue* /boot/initramfs-*rescue* 
+```
+```
+/usr/lib/kernel/install.d/51-dracut-rescue.install add "$(uname -r)" /boot "/boot/vmlinuz-$(uname -r)"
+```
+
+### Step 17: Verify new rescure system 
+
+```
+ls /boot/vmlinuz-*rescue* /boot/initramfs-*rescue*
+lsinitrd /boot/initramfs-*rescue*.img | grep -qm1 "$(uname -r)/kernel/" && echo "OK" || echo "FAIL"
+```
+
+```
+## check if entry in bootmenu refers to the right rescue kernel
+grubby --info $(ls /boot/vmlinuz-*rescue*)
+```
+
+### Step 18: Check and activate security profile 
+
+```
+## Are there any denials ? 
+ausearch -m AVC,USER_AVC -ts boot
+## set tto enforcing
+vi /etc/selinux/config
+```
+
+```
+## from permissive 
+.... enforcing
+```
+
+```
+reboot
+```
+
+### Reference:
+
+  * [https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/upgrading_from_rhel_8_to_rhel_9/index](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/upgrading_from_rhel_8_to_rhel_9/index#planning-an-upgrade_planning-an-upgrade-to-rhel-9)
+  * https://www.computerweekly.com/de/ratgeber/Wie-man-RHEL-8-auf-RHEL-9-aktualisiert
+
+## Containers / Automation
+
+### Using docker-compose in RHEL 9
+
+
+### Preparation / Installation 
+
+```
+dnf -y update
+dnf install -y podman git 
+## version needs to be >=3.0 
+podman --version
+```
+
+```
+## for using docker-compose podman.service needs to be running 
+systemctl status podman.service
+systemctl enable --now podman.service
+systemctl status podman.service
+## enabling and starting podman.service also creates a socket 
+systemctl status podman.socket
+```
+
+```
+## docker commands get translated to podman commands under the hood 
+dnf install -y podman-docker
+docker images
+```
+
+```
+## get latest docker-compose 
+curl -L https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+chmod u+x /usr/local/bin/docker-compose
+docker-compose
+```
+
+```
+## now test it with a project 
+## we do this in the home folder of root 
+cd 
+git clone https://github.com/docker/awesome-compose
+cd awesome-compose/
+ls -la
+```
+
+```
+cd gitea-postgres/
+## -d - daemon-mode -- let's it run in the background 
+docker-compose up -d 
+docker-compose images
+```
+
+```
+docker-compose --help
+## stop and delete everything 
+docker-compose down
+docker-compose images
+```
+
+### Reference:
+
+  * https://linuxhistory.com/2023/06/23/podman-how-to-configure-docker-compose-for-rhel9/
+
+### Capabilities with Ansible/Podman
+
+
+![image](https://github.com/user-attachments/assets/2260917c-eba7-4ef8-b79c-5300ab1bebc5)
+
+### Step 1: Configure control-node (on our redhat-master - node)  
+
+```
+## this alos includes all the necessary ansible packages
+sudo dnf install rhel-system-roles
+```
+
+```
+## Create user 
+sudo useradd ansible
+sudo su - ansible
+```
+
+```
+## Create public/private key.
+## For testing no pass please
+ssh-keygen 
+```
+
+```
+## Create ~/.ansible.cfg file
+nano ~/.ansible.cfg
+```
+
+```
+[defaults]
+inventory = /home/ansible/inventory
+remote_user = ansible
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = True
+```
+
+```
+## Create inventory file
+nano ~/inventory 
+```
+
+```
+[DE]
+redhat-node.training.local ansible_host=192.168.56.108
+```
+
+### Step 2: on node: configure redhat-node.training.local (our node to deploy)
+
+```
+## on redhat-node as root 
+useradd ansible
+usermod -aG wheel ansible 
+## Set a password and please remember it ! 
+passwd ansible 
+```
+
+### Step 3: on master node:
+
+```
+## on maaster-node as ansible user (where we do have the public key
+## change your ip accordingly 
+ssh-copy-id ansible@192.168.56.108 
+```
+
+```
+## Issue a test command
+ansible -m ping all
+```
+
+### Step 4: on master node: build the script 
+
+  * Ref: https://www.redhat.com/en/blog/automating-podman-rhel-system-roles
+
+```
+nano ubi8-httpd-24.yml 
+```
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubi8-httpd-24
+spec:
+  containers:
+    - name: ubi8-httpd-24
+      image: registry.access.redhat.com/ubi8/httpd-24
+      ports:
+        - containerPort: 8080
+          hostPort: 8080
+      volumeMounts:
+        - mountPath: /var/www/html:Z
+          name: ubi8-httpd-24-html
+  volumes:
+    - name: ubi8-httpd-24-html
+      hostPath:
+        path: /home/ansible/ubi8-httpd-24-html
+
+```
+
+```
+## build the inventory.yml file
+nano inventory.yml
+```
+
+```
+all:
+  hosts:
+    redhat-node.training.local:
+       ansible_host: 192.168.56.108
+  vars:
+    #podman system role variables:
+    podman_firewall:
+      - port: 8080/tcp
+        state: enabled
+    podman_create_host_directories: true
+    podman_host_directories:
+      "/home/ansible/ubi8-httpd-24-html":
+        owner: ansible
+        group: ansible
+        mode: "0755"
+    podman_kube_specs:
+      - state: started
+        run_as_user: ansible
+        run_as_group: ansible
+        kube_file_src: ubi8-httpd-24.yml
+
+    #cockpit system role variables:
+    cockpit_packages:
+      - cockpit-podman
+    cockpit_manage_firewall: true
+```
+
+```
+nano system_roles.yml 
+```
+
+```
+- name: Run podman RHEL system role
+  hosts: all
+  roles:
+    - redhat.rhel_system_roles.podman
+
+- name: Run cockpit RHEL system role
+  hosts: all
+  roles:
+    - redhat.rhel_system_roles.cockpit
+```
+
+```
+ansible-playbook -i inventory.yml -b system_roles.yml
+```
+
+#### Reference:
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/automating_system_administration_by_using_rhel_system_roles/assembly_preparing-a-control-node-and-managed-nodes-to-use-rhel-system-roles_automating-system-administration-by-using-rhel-system-roles
+
+  * https://www.redhat.com/en/blog/automating-podman-rhel-system-roles
+
+### Example alpine with dropped capabilities
+
+
+### Requirements: Last exercise 01-ansible......
+
+### Step 1: on master: Simple pod 
+
+```
+cd
+mkdir podtest
+cd podtest
+```
+
+```
+nano pod.yml 
+```
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+spec:
+  containers:
+    - name: cont
+      image: alpine
+      securityContext:
+        capabilities:
+          drop: ["ALL"]
+```
+
+```
+nano inventory.yml
+```
+
+```
+all:
+  hosts:
+    redhat-node.training.local:
+       ansible_host: 192.168.56.108
+  vars:
+    podman_kube_specs:
+      - state: started
+        run_as_user: ansible
+        run_as_group: ansible
+        kube_file_src: pod.yml
+```
+
+```
+nano system_roles.yml
+```
+
+```
+- name: Run podman RHEL system role
+  hosts: all
+  roles:
+    - redhat.rhel_system_roles.podman
+```
+
+```
+ansible-playbook -i inventory.yml -b system_roles.yml
+```
+
+### Step 2: on node: check capabilities
+
+```
+### Step 5: On node 
+
+```
+## we will enter the container and look for capabilities
+## They are all dropped. 
+podman exec -it alpine-cont cat /proc/1/status | grep -i cap
+```
+
+## Tipps & Tricks 
+
+## Anbindung an AD-Server 
+
+### Anbindung an AD-Server
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/integrating_rhel_systems_directly_with_windows_active_directory/connecting-rhel-systems-directly-to-ad-using-sssd_integrating-rhel-systems-directly-with-active-directory#using-posix-attributes-defined-in-active-directory_connecting-directly-to-ad
+
+## Zertifikat - Store (CA)
+
+### Zertifikat-Store
+
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/securing_networks/using-shared-system-certificates_securing-networks#adding-new-certificates_using-shared-system-certificates
+
+## auditd / systemd-coredump / crashkernel 
+
+### Auditing mit auditd
+
+
+### Example syscal rule
+
+```
+-a exit,always -F arch=b64 -F euid=0 -S execve -k  audit-wazuh-c
+-a exit,always -F arch=b32 -F euid=0 -S execve -k  audit-wazuh-c
+```
+
+```
+## after that
+augenrules --load
+```
+
+  * Ref: https://wazuh.com/blog/monitoring-root-actions-on-linux-using-auditd-and-wazuh/
+  * Ref: https://access.redhat.com/solutions/36278
+  * Ref: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/security_guide/sec-defining_audit_rules_and_controls_in_the_audit.rules_file#sec-Defining_Audit_Rules_and_Controls_in_the_audit.rules_file
+
+### Systemd coredump
+
+
+```
+systemctl list-units | grep core
+systemctl status systemd-coredump.socket
+
+## systemd-coredump maskieren
+## Dadurch wird er nicht verwendet 
+
+## Deaktivieren 
+systemctl mask systemd-coredump.socket
+systemctl stop systemd-coredump.socket qq
+
+## Aktivieren 
+systemctl unmask systemd-coredump.socket
+systemctl start systemd-coredump.socket
+
+######### Teil 2  -  verwenden -> als root 
+## Terminal 1: root 
+dnf install yum-utils
+debuginfo-install -y vim-debuginfo
+
+## config für systemd-coredump 
+## /etc/systemd/system.conf 
+##DumpCore=yes
+DefaultLimitCore=infinity 
+
+## Terminal 2: als kurs 
+ulimit -S -c unlimited > /dev/null 2>&1
+vim testfile 
+sleep 3 & kill -SEGV $!
+## was reinschreiben ohne speichern, d.h. vim offen lassen 
+
+## Terminal 1:  (root)
+## process id von vim rausfinden 
+ps ax | grep testfile 
+kill -s SIGSEGV 41262 
+coredumpctl 
+
+
+```
+
+
+### crashkernel deaktivieren
+
+  * https://access.redhat.com/solutions/7070808
+
+## Repo erstellen
+
+### repo erstellen
+
+  * https://www.percona.com/blog/how-to-create-your-own-repositories-for-packages/
+
+## YoPad
+
+### YoPad
+
+
+```
+## Redhat 9 - Update 
+
+### Documentation 
+
+https://github.com/jmetzger/training-redhat9update
+
+### Analyse - Server 
+
+1. Welche Interfaces 
+ip a 
+ip route
+top  
+iostat 
+
+
+
+
+
+### Übung 3.4 
+
+systemctl list-units | grep core
+systemctl status systemd-coredump.socket
+
+## systemd-coredump maskieren
+## Dadurch wird er nicht verwendet 
+
+## Deaktivieren 
+systemctl mask systemd-coredump.socket
+systemctl stop systemd-coredump.socket qq
+
+## Aktivieren 
+systemctl unmask systemd-coredump.socket
+systemctl start systemd-coredump.socket
+
+######### Teil 2  -  verwenden -> als root 
+## Terminal 1: root 
+dnf install yum-utils
+debuginfo-install -y vim-debuginfo
+
+## config für systemd-coredump 
+## /etc/systemd/system.conf 
+##DumpCore=yes
+DefaultLimitCore=infinity 
+
+## Terminal 2: als kurs 
+ulimit -S -c unlimited > /dev/null 2>&1
+vim testfile 
+sleep 3 & kill -SEGV $!
+## was reinschreiben ohne speichern, d.h. vim offen lassen 
+
+## Terminal 1:  (root)
+## process id von vim rausfinden 
+ps ax | grep testfile 
+kill -s SIGSEGV 41262 
+coredumpctl 
+
+
+### Übung 3.4 
+
+
+### Übung 3.3.
+
+https://github.com/jmetzger/training-redhat9update/blob/main/feature/filesystems-xfs/bigtime-inobtcount.md
+
+### Übung 3.2 
+
+https://github.com/jmetzger/training-redhat9update/blob/main/feature/cgroups-v2/overview.md
+
+
+
+### Documentation - Tag 3  / Übung 3.1 
+
+https://github.com/jmetzger/training-redhat9update/blob/main/network/mptcp/overview.md
+
+echo "net.mptcp.enabled=1" > /etc/sysctl.d/90-enable-MPTCP.conf
+sysctl -p /etc/sysctl.d/90-enable-MPTCP.conf
+sysctl net.mptcp.enabled
+dnf install -y  mptcpd iperf3
+## Listener 
+mptcpize run iperf3 -s &
+while true ; do ss -nti '( dport :5201 )'; done
+
+### Dann im Client -> 
+## client 
+mptcpize run iperf3 -c 127.0.0.1 -t 3
+nstat -s MPTcp*
+
+
+### Documentation - Tag 1
+
+https://github.com/jmetzger/training-redhat9update/blob/main/distros/overview-in-comparison-to-rhel-9.md
+https://github.com/jmetzger/training-redhat9update/blob/main/network/systemd-networkd/overview.md
+https://github.com/jmetzger/training-redhat9update/blob/main/network/ipv6/overview.md
+
+### Documentation - Tag 2
+https://github.com/jmetzger/training-redhat9update/blob/main/feature/redhat-container-tools/overview.md
+https://github.com/jmetzger/training-linux-sicherheit-und-haertung/blob/main/secureboot/06-encrypt-data-with-luks-tpm.md
+
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/considerations_in_adopting_rhel_9/index
+
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening#using-the-system-wide-cryptographic-policies_security-hardening
+
+### Übung 2.4. 
+
+training ALL=(ALL) /usr/bin/systemctl reload sshd,/usr/bin/chown
+useradd training :
+passwd training
+su - training 
+cdcat /etioas
+
+
+
+### Übung 2.3 
+
+1. Reboot und in bootmanager gehen (ESC) -> e für edit der 1. Zeile 
+2. Zeile linux, und schreiben ans Ende: init=/bin/bash 
+3. CTRL x 
+4. mount -o remount,rw / 
+5. Passwort ändern 
+passwd
+6. touch /.autorelabel 
+7. -> vm stopen/schliessen
+8. neu starten 
+9. einloggen mit root mit neuem Passwort 
+
+
+### Übung 2.2 
+
+https://github.com/jmetzger/training-redhat9update/blob/main/feature/rpm-zstd/overview.md
+
+## Übung 2.1 
+
+Make redhat 8 great again 
+https://github.com/jmetzger/training-redhat9update/blob/main/upgrade/in-place/step-by-step.md#step-96-analyze-errors-possible-error-cannot-open-database-file
+
+
+### Übung 1.2 
+
+in-place upgrade RHEL 8.10 ->> 9.4 
+
+https://github.com/jmetzger/training-redhat9update/blob/main/upgrade/in-place/step-by-step.md
+
+
+### Übung 1.1 
+
+https://github.com/jmetzger/training-redhat9update/blob/main/application_streams/overview.md
+
+
+### Default Target setzen 
+
+systemctl set-default multi-user.target 
+reboot 
+
+### in kernel param
+
+systemd.unit=multi-user.target
+
+### Target während des Betriebs 
+
+systemctl isolate multi-user.target 
+systemctl set-default multi-user.target 
+reboot 
+
+### Ip - Adresse anzeigen 
+
+ip a show enp0s8 
+
+
+
+
+```
 
 ## Distributionen 
 
@@ -181,8 +1735,6 @@ DDWRT
 ### Seite mit Übersicht aller Linux-Distros 
 
   * https://distrowatch.com/
-
-<div class="page-break"></div>
 
 ## Verzeichnisse und Dateitypen 
 
@@ -256,8 +1808,6 @@ DDWRT
 
   * Normale Programme für alle (executables) 
 
-<div class="page-break"></div>
-
 ### Dateitypen
 
 
@@ -276,8 +1826,6 @@ b Block-Device (Ausgabegerät): Blockorientiert, z.B. Festplatte)
 s socket (Für Kommunikation von client zu server / server zu client) auf der gleichen Maschine  
 ```
 
-<div class="page-break"></div>
-
 ## Basisbefehle
 
 ### In den Root-Benutzer wechseln
@@ -289,8 +1837,6 @@ sudo su -
 ## eingeben des Passworts des Benutzers
 ```
 
-<div class="page-break"></div>
-
 ### Wo bin ich ?
 
 
@@ -300,8 +1846,6 @@ sudo su -
 ## pwd - Print working directory 
 pwd 
 ```
-
-<div class="page-break"></div>
 
 ### Praktische Ausgabe von langen Seiten - less
 
@@ -352,16 +1896,12 @@ h
 q
 ```
 
-<div class="page-break"></div>
-
 ### Datei anlegen - touch
 
 
 ```
 touch dateiname 
 ```
-
-<div class="page-break"></div>
 
 ### Autovervollständen * und tab
 
@@ -385,8 +1925,6 @@ echo todol<TAB> # bei einem weiteren Eintrag
 
 
 
-<div class="page-break"></div>
-
 ### Welches Programm wird verwendet
 
 
@@ -395,8 +1933,6 @@ echo todol<TAB> # bei einem weiteren Eintrag
 ## und zeigt ersten Fund --> d.h. dieses Programm würde ausgeführt 
 which false 
 ```
-
-<div class="page-break"></div>
 
 ## Erweiterte Befehle (Nice to have) 
 
@@ -424,16 +1960,12 @@ alias l3='ls -la | head -n 3'
 unalias l3
 ```
 
-<div class="page-break"></div>
-
 ### Welche Bibliotheken verwendet ein ausführbares Programm
 
 
 ```
 ldd /usr/bin/ls 
 ```
-
-<div class="page-break"></div>
 
 ### Ist ein Befehl extern, alias oder intern
 
@@ -464,16 +1996,12 @@ cd /etc
 ```
 
 
-<div class="page-break"></div>
-
 ### Verzeichnisse in Listenansicht mit versteckten Dateien anzeigen -> ls -la
 
 
 ```
 ls -la 
 ```
-
-<div class="page-break"></div>
 
 ### Inhalt in Datei schreiben und anhängen
 
@@ -492,8 +2020,6 @@ ls -la > todo
 ## angehängt 
 echo "hans hat durst" >> todo 
 ```
-
-<div class="page-break"></div>
 
 ### Verzeichnisse anlegen
 
@@ -531,8 +2057,6 @@ tree dokumente
 tree /etc | less 
 
 ```
-
-<div class="page-break"></div>
 
 ### Verzeichnisse und Dateien löschen
 
@@ -577,8 +2101,6 @@ cat woche1.txt
 
 ```
 
-<div class="page-break"></div>
-
 ### Kopieren/Verschieben/Umbenennen von Dateien und Files
 
 
@@ -614,8 +2136,6 @@ cp ab cd
 cp -a /etc /etc3
 
 ```
-
-<div class="page-break"></div>
 
 ### Arbeiten mit vi
 
@@ -701,8 +2221,6 @@ STRG + w w
 
 http://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf
 
-<div class="page-break"></div>
-
 ## Dateimanipulation/Unix Tools
 
 ### Anfang oder Ende einer Datei/Ausgabe anzeigen
@@ -742,8 +2260,6 @@ tail -n20 /etc/services
 tail -20 /etc/services 
 tail --lines=20 /etc/services
 ```
-
-<div class="page-break"></div>
 
 ### cat/head/tail-Beginn/Ende einer Datei anzeigen
 
@@ -788,8 +2304,6 @@ tail -n 40 /etc/services
 cat /etc/services | tail
 ```
 
-<div class="page-break"></div>
-
 ### zcat - Inhalte einer mit gzip komprimierten Datei anzeigen
 
 ### wc - Zeilen zählen
@@ -805,8 +2319,6 @@ wc -l /etc/services
 ```
 ls -la | wc -l 
 ```
-
-<div class="page-break"></div>
 
 ### Bestimmte Zeilen aus Datei anzeigen - grep
 
@@ -841,8 +2353,6 @@ cat /etc/services | grep  "s$"
 ```
 grep -r "PermitRootLogin" /etc
 ```
-
-<div class="page-break"></div>
 
 ### Erweiterte Suche mit Grep
 
@@ -970,8 +2480,6 @@ grep  "[[:digit:]]\{5\}" /root/namen
 
   * https://www.cyberciti.biz/faq/grep-regular-expressions/
 
-<div class="page-break"></div>
-
 ### Finden von files nach Kriterien - find
 
 
@@ -981,8 +2489,6 @@ grep  "[[:digit:]]\{5\}" /root/namen
 ## find directories with specific name 
 find / -name tmpfiles.d -type d 
 ```
-
-<div class="page-break"></div>
 
 ## Prozesse 
 
@@ -1009,8 +2515,6 @@ systemctl status sshd
 pstree -p 
 ```
 
-<div class="page-break"></div>
-
 ### Alle Prozesse eines Dienstes anzeigen
 
 
@@ -1024,8 +2528,6 @@ USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 mysql      16938  0.0  1.1 1778456 94776 ?       Ssl  09:51   0:00 /usr/libexec/mysqld --basedir=/usr
 
 ```
-
-<div class="page-break"></div>
 
 ## Benutzer, Gruppen und Rechte 
 
@@ -1081,8 +2583,6 @@ chmod 777 testfile
 chmod -R 777 testverzeichnis 
 ```
 
-<div class="page-break"></div>
-
 ### Dateien für Benutzer und Gruppen
 
 
@@ -1100,8 +2600,6 @@ kurs@ubuntu2004-104:/etc$ ls -la passwd shadow group
 
 ```
 
-<div class="page-break"></div>
-
 ### Benutzer anlegen
 
 
@@ -1114,8 +2612,6 @@ useradd
 ## for admins interactive
 adduser
 ```
-
-<div class="page-break"></div>
 
 ### sudo Benutzer erstellen
 
@@ -1133,8 +2629,6 @@ id # shows the same but more info
 sudo su -
 ```
 
-<div class="page-break"></div>
-
 ## Logs/Loganalyse
 
 ### Logfile beobachten
@@ -1148,8 +2642,6 @@ tail -f /var/log/syslog
 logger meine_nachricht 
 
 ```
-
-<div class="page-break"></div>
 
 ### Dienste debuggen
 
@@ -1213,8 +2705,6 @@ grep -r gummitulpe /etc
 /etc/my.cnf.d/mariadb-server.cnf:gummitulpe=/nix
 ```
 
-<div class="page-break"></div>
-
 ### Rsyslog
 
 
@@ -1230,8 +2720,6 @@ grep -r gummitulpe /etc
 
 Ref: https://www.tecmint.com/setup-rsyslog-client-to-send-logs-to-rsyslog-server-in-centos-7/
 ```
-
-<div class="page-break"></div>
 
 ### Journal analysieren
 
@@ -1279,8 +2767,6 @@ SystemMaxUse=1G
 journalctl -u ssh 
 ```
 
-<div class="page-break"></div>
-
 ## Variablen
 
 ### Setzen und verwenden von Variablen
@@ -1309,8 +2795,6 @@ journalctl -u ssh
  echo $DATUM
  echo $DATUM >> /var/log/datumslog
 ```
-
-<div class="page-break"></div>
 
 ## Dienste/Runlevel(Targets verwalten) 
 
@@ -1516,8 +3000,6 @@ systemctl poweroff
 
 
 
-<div class="page-break"></div>
-
 ### Systemctl - timers
 
 
@@ -1594,8 +3076,6 @@ IOSchedulingClass=idle
 
   * https://nielsk.micro.blog/2015/11/11/creating-systemd-timers.html
 
-<div class="page-break"></div>
-
 ### Gegenüberstellung service etc/init.d/ systemctl
 
 
@@ -1616,8 +3096,6 @@ service rsyslog status
 
 ```
 
-<div class="page-break"></div>
-
 ### Default Editor systemctl setzen
 
 
@@ -1630,8 +3108,6 @@ export SYSTEMD_EDITOR=vim
 export SYSTEMD_EDITOR=vim
 
 ```
-
-<div class="page-break"></div>
 
 ## Systemd 
 
@@ -1646,8 +3122,6 @@ hostnamectl # Hostname einstellen
 timedatectl 
 localectl # locales konfigurieren
 ```
-
-<div class="page-break"></div>
 
 ## Firewall
 
@@ -1811,8 +3285,6 @@ firewall-cmd --runtime-to-permanent
   * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
   * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
 
-<div class="page-break"></div>
-
 ## Systemadministration 
 
 ### Hostname setzen/abfragen
@@ -1826,8 +3298,6 @@ hostnamectl
 ## Trick für prompt - ist in der aktuellen, erst nach neueinloggen/bzw. neuer bash aktiv 
 su - root # bzw. su - benutzer 
 ```
-
-<div class="page-break"></div>
 
 ### ssh absichern
 
@@ -1869,8 +3339,6 @@ ssh-copy-id kurs@server1
 ssh kurs@server1 
 
 ```
-
-<div class="page-break"></div>
 
 ## Partitionierung und Filesystem
 
@@ -1921,8 +3389,6 @@ mount | grep platte  # taucht platte hier auf ?
 
 ```
 
-<div class="page-break"></div>
-
 ## Boot-Prozess und Kernel 
 
 ### Grub konfigurieren
@@ -1954,16 +3420,12 @@ update-grub
 ## Step 4 - be happy 
 ```
 
-<div class="page-break"></div>
-
 ### Kernel-Version anzeigen
 
 
 ```
 uname -a 
 ```
-
-<div class="page-break"></div>
 
 ### Kernel-Module laden/entladen/zeigen
 
@@ -1993,8 +3455,6 @@ cd /lib/modules/5.4.0-66-generic
 find /lib/modules -name psmouse* 
 /lib/modules/5.4.0-66-generic/kernel/drivers/input/mouse/psmouse.ko
 ```
-
-<div class="page-break"></div>
 
 ## Hilfe 
 
@@ -2038,16 +3498,12 @@ n # nächster Treffer (kleines n)
 N # letzter Treffer 
 ```
 
-<div class="page-break"></div>
-
 ## Grafische Oberfläche und Installation 
 
 ### X-Server - Ausgabe auf Windows umleiten
 
 
   * https://www.thomas-krenn.com/de/wiki/Grafische_Linux_Programme_remote_von_einem_Windows_PC_mit_Xming_nutzen
-
-<div class="page-break"></div>
 
 ### Installations-Images-Server
 
@@ -2069,8 +3525,6 @@ apt-get upgrade
 apt-get dist-upgrade
 
 ```
-
-<div class="page-break"></div>
 
 ### Paketmanager yum
 
@@ -2126,8 +3580,6 @@ yum whatprovides sealert
 
   * https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
 
-<div class="page-break"></div>
-
 ### Archive runterladen und entpacken
 
 
@@ -2147,106 +3599,7 @@ cd foo
 tar xvf master.tar.gz
 ```
 
-<div class="page-break"></div>
-
-### Apache installieren (firewall und selinux)
-
-
-### Walkthrough 
-
-```
-### Schritt 1:
-## suche // apache heisst auf centos httpd
-yum search httpd
-## oder
-dnf search httpd
-
-### Schritt 2: 
-yum install httpd 
-
-### Wie heisst der Dienst und Starten und Enablen (für nächsten Reboot)  
-yum list-unit-files --type=service | grep httpd
-systemctl enable httpd 
-systemctl start httpd 
-
-### Schritt 3: 
-## Konfiguration anpassen
-## /etc/httpd/conf/httpd.conf # Hauptkonfigurationsdatei
-## Änderungen mit Editor vornehmen z.B. nano 
-cd /etc/httpd/conf/httpd.conf; nano httpd.conf 
-## Danach Neustart oder Reload 
-## Restart funktioniert immer
-systemctl restart httpd 
-
-### Schritt 4:
-## Firewall freigeben 
-## D.h. welche zone ist active -> public 
-firewall-cmd --get-active-zones  
-## konfigurieren 
-firewall-cmd --add-service=http --permanent 
-firewall-cmd --add-service=https --permanent 
-firewall-cmd --reload 
-
-### Schritt 5: 
-## Mit Browser testen 
-```
-
-### Apache started nicht wg Port-Änderung (Port: 82)  - Quick and Dirty Lösung
-
-```
-## /etc/httpd/httpd.conf
-## zeile hinzufügen 
-Listen 82
-
-## Es kommt ein Fehler bei Apache port 82 (Listen 82) 
-systemctl restart httpd
-
-## Schritt 1: Prüfen, ob selinux aktiv ist
-sestatus # Sucht 2 Einträgen enforcing 
-
-## Schritt 2: selinux testweise abschalten 
-setenforce 0 # das heisst, regeln werden protokolliert, aber nicht durchgesetzt 
-
-## Schritt3: 
-systemctl restart httpd 
-
-## Wenn das der Fall ist, selinux deaktivieren 
-/etc/selinux/config 
-## mit editor 
-SELINUX=permissive
-## oder wenn man generell selinux nicht einsetzten möchte:
-SELINUX=disabled 
-## Danach rebooten 
-```
-
-### Apache started nicht wg Port-Änderung (Port: 82)  - Nice and Smooth (better!) 
-
-```
-## Falls sealert nicht installiert ist -> sealert -> command not found 
-yum whatprovides sealert 
-
-sealert -a /var/log/audit/audit.log > /root/report
-## In der Datei finden wir Handlungsanweisungen 
-
-## Welche port-typen gibt es für http
-semanage port -l | grep http
-## Wir entscheiden uns für http_port_t weil hier auch die 80 auftaucht 
-semanage port -a -t http_port_t -p tcp 82 
-setenforce 1 
-systemctl restart httpd 
-
-## Don't forget to add firewall rules 
-firewall-cmd --list-all # is the port listed here ? 
-firewall-cmd --add-port=82/tcp --zone=public --permanent # Sets in configuration but not in runtime 
-firewall-cmd --reload 
-
-## Now test with and your public ip 
-## get it with 
-ip a 
-
-```
-
-<div class="page-break"></div>
+### Apache installieren (firewall und )
 
 ## Firewall und ports
 
@@ -2410,8 +3763,6 @@ firewall-cmd --runtime-to-permanent
   * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
   * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
 
-<div class="page-break"></div>
-
 ### Scannen und Überprüfen mit telnet/nmap
 
 ## Netzwerk/Dienste 
@@ -2428,8 +3779,6 @@ dhclient enp0s8 # ip - Adresse für Schnittstelle enp0s8 holen
 ip a
 ```
 
-<div class="page-break"></div>
-
 ### Auf welchen Ports lauscht mein Server
 
 
@@ -2439,8 +3788,6 @@ lsof -i
 ## alternative
 netstat -tupel
 ```
-
-<div class="page-break"></div>
 
 ### Interface mit nmtu-edit verwalten - schneller Weg
 
@@ -2452,8 +3799,6 @@ nmcli conn show
 ## z.B. wenn enp0s9 als profil vorhanden ist 
 nmtui-edit enp0s8 
 ```
-
-<div class="page-break"></div>
 
 ### Netzwerkinterface auf der Kommandozeile einrichten
 
@@ -2523,8 +3868,6 @@ ip a
 
   * https://www.howtoforge.de/anleitung/wie-man-eine-statische-ip-adresse-unter-centos-8-konfiguriert/
 
-<div class="page-break"></div>
-
 ### Scannen mit nmap
 
 
@@ -2533,8 +3876,6 @@ ip a
 ```
 nmap -PE 192.168.1.2-5
 ```
-
-<div class="page-break"></div>
 
 ## Podman 
 
@@ -2670,8 +4011,6 @@ podman exec -it mycontainer bash
 ### e.g. env
 ```
 
-<div class="page-break"></div>
-
 ## SELinux (Linux härten)
 
 ### SELinux
@@ -2708,8 +4047,6 @@ reboot
 ## Achtung relabeln kann dauern !!! durchaus 5 Minuten 
 ```
 
-<div class="page-break"></div>
-
 ## Tools/Verschiedens 
 
 ### Remote Desktop für Linux / durch Teilnehmer getestet
@@ -2735,8 +4072,6 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/4/html/re
 
 ```
 
-<div class="page-break"></div>
-
 ### lokale Mails installieren
 
 
@@ -2751,8 +4086,6 @@ cat /var/mail/root
 ## nach der gesendeten Email 
 
 ```
-
-<div class="page-break"></div>
 
 ## Bash/Bash-Scripting 
 
@@ -2775,8 +4108,6 @@ chmod u+x script.sh
 
 ```
 
-<div class="page-break"></div>
-
 ### Ausführen/Verketten von mehreren Befehlen
 
 
@@ -2791,8 +4122,6 @@ apt update && apt upgrade
 ## befehl1 oder befehlt2 (im weitesten Sinne) 
 befehl1 || befehl2
 ```
-
-<div class="page-break"></div>
 
 ### Example with date and if
 
@@ -2827,8 +4156,6 @@ chmod 755 datum  # es müssen x-Rechte (Ausführungsrechte gesetzt sein)
 ### Abwarten, Tee trinken 
 ```
  
-
-<div class="page-break"></div>
 
 ### cronjob (zentral) - crond
 
@@ -2883,8 +4210,6 @@ ls -la /var/log/scripting.log
 
 ```
 
-<div class="page-break"></div>
-
 ## Literatur 
 
 ### Literatur
@@ -2909,5 +4234,3 @@ ls -la /var/log/scripting.log
 
   * [Bash Programmierung](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
   * [Bash Advanced Programmierung](https://tldp.org/LDP/abs/html/loops1.html)
-
-<div class="page-break"></div>
