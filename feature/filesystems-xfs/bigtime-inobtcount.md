@@ -23,16 +23,18 @@ xfs_info /dev/mapper/rhel*root | grep -e bigtime -e inobtcount
 
 ## Downward compability 
 
-  * If you want to use a filesystem with these feature enabled in RHEL 9:
-
 ```
-You have to disable these with
-xfs_admin
+To create a new filesystem that will be compatible with the RHEL 8 kernel, disable these new features by adding -m bigtime=0,inobtcount=0 to the mkfs.xfs command line. A filesystem created in this way will not support timestamps beyond the year 2038.
 ```
 
 ## Migration 
 
-  * The LEAPP - in place- migration - tool, does this for you (changing it with xfs_admin)
+  * The LEAPP - in place- migration - tool, does NOT do this for you  (changing it with xfs_admin)
+  * You have do it manually, it does not work if filesystem is mounted
+
+```
+xfs_admin -O bigtime=1,inobtcount=1 /dev/mapper/rhel-root
+```
 
 ## Reference:
 
