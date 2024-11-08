@@ -11,12 +11,12 @@
 ```
 Server:
 
-Private key: YFAnE0psgIdiAF7XR4abxiwVRnlMfeltxu10s/c4JXg=
+Private key: <your private-key-of-this-server>
 Tunnel IPv4 address: 192.0.2.1/24
 Tunnel IPv6 address: 2001:db8:1::1/32
 Client:
 
-Public key: bnwfQcC8/g2i4vvEqcRUM2e6Hi3Nskk6G9t4r26nFVM=
+Public key: <your public-keyof-2-1-server>
 Tunnel IPv4 address: 192.0.2.2/24
 Tunnel IPv6 address: 2001:db8:1::2/32
 ```
@@ -100,6 +100,7 @@ firewall-cmd --reload
 
 ```
 nano /etc/wireguard/wg0.conf 
+```
 
 ```
 [Interface]
@@ -119,6 +120,19 @@ PersistentKeepalive = 20
 # Enabling the interface 
 systemctl enable --now wg-quick@wg0
 ```
+
+## Step 1.8 Testen vom client aus zum Server 
+
+```
+ping -c 4 192.0.2.1 
+```
+
+## Step 1.9  Test vom server aus zum client 
+
+```
+ping -c 4 192.168.0.2
+```
+
 
 ## Reference:
 
