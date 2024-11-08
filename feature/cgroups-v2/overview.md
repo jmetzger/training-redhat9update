@@ -58,6 +58,7 @@ echo 'for i in {1..4};do while : ; do : ; done & done' >> /usr/lib/systemd/gener
 sudo chmod +x /usr/lib/systemd/generate_load.sh
 sudo systemctl enable myservice1 --now
 systemd-cgls
+systemd-cgls -u system.slice
 ```
 
 ## Step 2: Create slice and set cpu for myservice1 
