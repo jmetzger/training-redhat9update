@@ -112,7 +112,7 @@ AllowedIPs = 192.0.2.1, 2001:db8:1::1
 
 # Endpoint = <public-ip-of-server-1.1-1.3>:51820
 # e.g. 
-Endpint = 192.168.56.110:51820
+Endpoint = 192.168.56.110:51820
 PersistentKeepalive = 20
 ```
 
