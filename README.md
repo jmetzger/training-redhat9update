@@ -29,6 +29,7 @@
 
   1. Network
      * [eBPF & tools](/network/ebpf/overview.md)
+     * [MultiPath TCP](/network/mptcp/overview.md)
 
   1. Future / Network
      * [systemd-networkd / .network units](network/systemd-networkd/overview.md
