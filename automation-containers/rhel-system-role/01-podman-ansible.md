@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/2260917c-eba7-4ef8-b79c-5300ab1bebc5)
 
-## Step 1: Configure management-node (on our redhat-master - node)  
+## Step 1: Configure control-node (on our redhat-master - node)  
 
 ```
 # this alos includes all the necessary ansible packages
