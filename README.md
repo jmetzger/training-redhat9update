@@ -56,7 +56,7 @@
      *  [Ins System reinkommen ohne Passwort und Änderungen vornehmen](tipps-tricks/init-bash.md)
     
   1. Anbindung an AD-Server 
-     * [Anbindung an AD-SErver](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/integrating_rhel_systems_directly_with_windows_active_directory/connecting-rhel-systems-directly-to-ad-using-sssd_integrating-rhel-systems-directly-with-active-directory#using-posix-attributes-defined-in-active-directory_connecting-directly-to-ad)
+     * [Anbindung an AD-Server](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/integrating_rhel_systems_directly_with_windows_active_directory/connecting-rhel-systems-directly-to-ad-using-sssd_integrating-rhel-systems-directly-with-active-directory#using-posix-attributes-defined-in-active-directory_connecting-directly-to-ad)
 
 ## Backlog 
 
