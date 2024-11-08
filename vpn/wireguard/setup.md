@@ -1,5 +1,9 @@
 # Setup wireguard 
 
+## 2 peer - servers 
+
+![image](https://github.com/user-attachments/assets/bf51649d-a118-4182-89d5-43b9be38723e)
+
 ## Prerequisites:
 
   * We will have 2 machines (peers)
