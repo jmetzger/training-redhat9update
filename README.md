@@ -62,9 +62,10 @@
   1. Zertifikat - Store (CA)
      * [Zertifikat-Store](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/securing_networks/using-shared-system-certificates_securing-networks#adding-new-certificates_using-shared-system-certificates)
 
-  1. auditd / systemd-coredump 
+  1. auditd / systemd-coredump / crashkernel 
      * [Auditing mit auditd](auditd/overview.md)
      * [Systemd coredump](systemd/coredump.md)
+     * [crashkernel deaktivieren](https://access.redhat.com/solutions/7070808)
 
 ## Backlog 
 
