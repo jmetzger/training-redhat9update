@@ -74,7 +74,7 @@ dnf install cockpit-leapp
 ### Step 9.5: Upgrading system 
 
 ```
-sudo leapp preupgrade --debug --verbose --target 9.4
+sudo leapp upgrade --debug --verbose --target 9.4
 ```
 
 ### Step 9.6: Analyze errors: Possible error: cannot open database file 
